@@ -1,0 +1,179 @@
+.locker-card {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-card);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.locker-card:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+    transform: translateY(-2px);
+}
+
+.locker-card.available {
+    border-color: #bbf7d0;
+}
+
+.locker-card.in-use {
+    border-color: #bfdbfe;
+    opacity: 0.85;
+}
+
+.locker-card.maintenance {
+    border-color: #fde68a;
+    opacity: 0.85;
+}
+
+
+/* Header */
+
+.locker-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--color-border);
+    background: #f8fafc;
+}
+
+.locker-code {
+    color: var(--color-heading);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+
+/* Body */
+
+.locker-card-body {
+    display: flex;
+    gap: 16px;
+    padding: 18px;
+    flex: 1;
+}
+
+.locker-visual {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.locker-visual svg {
+    width: 30px;
+    height: 30px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+}
+
+.locker-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.locker-info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.locker-info-row span {
+    color: var(--color-muted);
+    font-size: 11px;
+}
+
+.locker-info-row strong {
+    color: var(--color-heading);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* Footer */
+
+.locker-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--color-border);
+    background: #f8fafc;
+}
+
+.locker-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.locker-status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+}
+
+.locker-status.available {
+    color: #15803d;
+}
+
+.locker-status.available span {
+    background: var(--color-success);
+}
+
+.locker-status.in-use {
+    color: var(--color-primary);
+}
+
+.locker-status.in-use span {
+    background: var(--color-primary);
+}
+
+.locker-status.maintenance {
+    color: #b45309;
+}
+
+.locker-status.maintenance span {
+    background: var(--color-warning);
+}
+
+
+/* Reserve button */
+
+.locker-reserve-btn {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--color-primary);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.locker-reserve-btn:hover {
+    background: var(--color-primary-hover);
+}
+
+.locker-reserve-btn.disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+}

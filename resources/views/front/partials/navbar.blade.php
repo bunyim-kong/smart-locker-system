@@ -15,7 +15,7 @@
     <header class="header">
         <div class="navbar">
 
-            <a href="/" class="logo-link">
+            <a href="/home" class="logo-link">
                 <img
                     src="images/logo.webp"
                     alt="Smart Locker System"
@@ -23,11 +23,15 @@
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             </a>
 
+            @php
+                $current = request()->segment(1); // "home", "location", "how-to-use", "faq"
+            @endphp
+
             <nav class="main-nav">
-                <a href="/" class="nav-link active">Home</a>
-                <a href="" class="nav-link">Location</a>
-                <a href="/how-to-use" class="nav-link">How to Use</a>
-                <a href="/faq" class="nav-link">FAQ</a>
+                <a href="/home" class="nav-link {{ $current === 'home' ? 'active' : '' }}">Home</a>
+                <a href="/location" class="nav-link {{ $current === 'location' ? 'active' : '' }}">Location</a>
+                <a href="/how-to-use" class="nav-link {{ $current === 'how-to-use' ? 'active' : '' }}">How to Use</a>
+                <a href="/faq" class="nav-link {{ $current === 'faq' ? 'active' : '' }}">FAQ</a>
             </nav>
 
             <div class="flex">

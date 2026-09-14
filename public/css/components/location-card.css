@@ -1,0 +1,253 @@
+.location-card {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    gap: 30px;
+    padding: 24px;
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-card);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.location-card:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
+    transform: translateY(-1px);
+}
+
+.location-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.location-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.location-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.location-icon svg {
+    width: 21px;
+    height: 21px;
+    stroke: currentColor;
+    stroke-width: 1.8;
+}
+
+.location-title h3 {
+    margin: 0 0 4px;
+    color: var(--color-heading);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.location-title p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+
+/* Status */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-badge span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.status-badge.open {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.status-badge.open span {
+    background: var(--color-success);
+}
+
+.status-badge.full {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.status-badge.full span {
+    background: var(--color-danger);
+}
+
+.status-badge.maintenance {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.status-badge.maintenance span {
+    background: var(--color-warning);
+}
+
+.locker-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.locker-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 9px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.locker-pill span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.locker-pill.available {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.locker-pill.available span {
+    background: var(--color-success);
+}
+
+.locker-pill.in-use {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.locker-pill.in-use span {
+    background: var(--color-primary);
+}
+
+.locker-pill.maintenance {
+    background: #fffbeb;
+    color: #b45309;
+}
+
+.locker-pill.maintenance span {
+    background: var(--color-warning);
+}
+
+.availability {
+    margin-top: 18px;
+}
+
+.availability-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    color: var(--color-muted);
+    font-size: 11px;
+}
+
+.availability-info strong {
+    color: var(--color-body);
+    font-weight: 600;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #e2e8f0;
+}
+
+.progress-bar div {
+    height: 100%;
+    border-radius: inherit;
+    background: var(--color-success);
+}
+
+.location-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: right;
+    border-left: 1px solid var(--color-border);
+    padding-left: 25px;
+}
+
+.location-action > span {
+    color: var(--color-muted);
+    font-size: 11px;
+}
+
+.location-action strong {
+    margin-top: 3px;
+    color: var(--color-heading);
+    font-size: 21px;
+}
+
+.location-action small {
+    color: var(--color-muted);
+    font-size: 10px;
+}
+
+.location-button {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 0;
+    border-radius: 9px;
+    background: var(--color-primary);
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.location-button:hover {
+    background: var(--color-primary-hover);
+}
+
+.location-button svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    stroke-width: 2;
+}
+
+.location-button.disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+}

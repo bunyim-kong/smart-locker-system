@@ -17,9 +17,13 @@
         <div class="footer-container">
 
             <div class="footer-brand">
-                <span class="brand-name">
-                    SMART<span>LOCKER</span>
-                </span>
+                <a href="/home" class="logo-link">
+                    <img
+                        src="images/logo.webp"
+                        alt="Smart Locker System"
+                        class="h-[90px]"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                </a>
             </div>
 
             <nav class="footer-nav">

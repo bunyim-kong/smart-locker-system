@@ -15,3 +15,14 @@ Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->n
 Route::get('/home', function () {
     return view('front.home');
 });
+
+Route::get('/location', function () {
+    return view('front.locations.index');
+});
+
+Route::get('/location-detail', function () {
+    return view('front.locations.show');
+});
+
+Route::get('/lockers', fn() => view('front.lockers.index'))->name('lockers.index');
+Route::get('/locker', fn() => view('front.lockers.show'))->name('lockers.show');

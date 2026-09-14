@@ -13,7 +13,7 @@
             <path d="M20 20a70 70 0 0 1 70 70" />
         </svg>
 
-        <div class="hero-content">
+        <div class="container hero-content">
 
             <span class="hero-badge">
                 🚀 19 LOCKERS · 3 LOCATIONS · LIVE NOW
@@ -70,7 +70,7 @@
 
     <section class="stats-section">
 
-        <div class="stats-grid">
+        <div class="container stats-grid">
 
             <div class="stat-card">
                 <div class="stat-label available">
@@ -108,14 +108,14 @@
 
     </section>
 
-    <section class="locations-section">
+    <section class="container locations-section">
 
         <div class="section-heading">
 
             <div>
                 <span class="section-label">LOCATIONS</span>
                 <h2>Locations near you</h2>
-                <p>Showing 3 nearby locker stations</p>
+                <p>This is some location that is near you</p>
             </div>
 
             <div class="sort-wrapper">
@@ -135,9 +135,7 @@
 
             <!-- ABC Mall -->
             <article class="location-card">
-
                 <div class="location-main">
-
                     <div class="location-header">
 
                         <div class="location-title">
@@ -163,7 +161,6 @@
 
                     </div>
 
-
                     <div class="locker-pills">
 
                         <span class="locker-pill available">
@@ -183,7 +180,6 @@
 
                     </div>
 
-
                     <div class="availability">
 
                         <div class="availability-info">
@@ -196,9 +192,7 @@
                         </div>
 
                     </div>
-
                 </div>
-
 
                 <div class="location-action">
 
@@ -217,7 +211,6 @@
                     </a>
 
                 </div>
-
             </article>
 
 
@@ -404,9 +397,7 @@
     </section>
 
     <section class="map-section">
-
-        <div class="map-container">
-
+        <div class="container map-container">
             <div class="map-content">
 
                 <span class="section-label light">
@@ -441,7 +432,6 @@
 
             </div>
 
-
             <div class="map-preview">
 
                 <div class="map-grid"></div>
@@ -474,12 +464,10 @@
                 </div>
 
             </div>
-
         </div>
-
     </section>
 
-    <section class="how-section">
+    <section class="container how-section">
 
         <div class="how-heading">
 
@@ -561,7 +549,7 @@
 
     </section>
 
-    <section class="trust-section">
+    <section class="container trust-section">
 
         <div class="trust-grid">
 
