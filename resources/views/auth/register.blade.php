@@ -15,7 +15,7 @@
 <body>
 
     <div class="register-page">
-        <div class="register-card">
+        <div class="register-card"> 
             <div class="register-logo">
                 <img src="images/logo.webp" alt="">
             </div>

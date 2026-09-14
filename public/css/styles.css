@@ -1,34 +1,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
-  --color-primary: #0d6efd;
-  --color-primary-hover: #0b5ed7;
-  --color-primary-dark: #0a2a5e;
-  --color-primary-light: #eff6ff;
-  --color-primary-soft: #e8f0fe;
+    --color-primary: #0d6efd;
+    --color-primary-hover: #0b5ed7;
+    --color-primary-dark: #0a2a5e;
+    --color-primary-light: #eff6ff;
+    --color-primary-soft: #e8f0fe;
 
-  --color-bg: #f8fafc;
-  --color-card: #ffffff;
-  --color-card-hover: #f8fbff;
+    --color-bg: #f8fafc;
+    --color-card: #ffffff;
+    --color-card-hover: #f8fbff;
 
-  --color-heading: #0a2a5e;
-  --color-body: #475569;
-  --color-muted: #94a3b8;
+    --color-heading: #0a2a5e;
+    --color-body: #475569;
+    --color-muted: #94a3b8;
 
-  --color-border: #e2e8f0;
-  --color-border-hover: #0d6efd;
+    --color-border: #e2e8f0;
+    --color-border-hover: #0d6efd;
 
-  --color-btn-primary: #0d6efd;
-  --color-btn-primary-hover: #0b5ed7;
-  --color-btn-text: #ffffff;
+    --color-btn-primary: #0d6efd;
+    --color-btn-primary-hover: #0b5ed7;
+    --color-btn-text: #ffffff;
 
-  --color-badge-bg: #eff6ff;
-  --color-badge-text: #0b5ed7;
+    --color-badge-bg: #eff6ff;
+    --color-badge-text: #0b5ed7;
 
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
 
-  --color-footer: #0a2a5e;
-  --color-footer-text: #cbd5e1;
+    --color-footer: #0a2a5e;
+    --color-footer-text: #cbd5e1;
 }
