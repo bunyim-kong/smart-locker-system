@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
-            $table->foreignID("locker_id")->constrained();
-            $table->foreignID("user_id")->constrained();
+
+            $table->unsignedBigInteger('locker_id');
+            $table->foreign('locker_id')->references('id')->on('lockers');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->string("issue_des");
-            $table->string("report_date");
-            $table->string("resolve_date");
+            $table->timestamp("report_date");
+            $table->timestamp("resolve_date");
             $table->timestamps();
         });
     }

@@ -7,23 +7,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Maintenance extends Model
 {
     protected $fillable = [
-        'locker',
-        'user',
+        'locker_id',
+        'user_id',
         'issue_des',
         'report_date',
         'resolve_date',
     ];
-    public function users(): HasMany
+
+    public function user()
+    {
+        return $this-> belongsTo(User::class);
+    }
+
+    public function locker()
 
     {
-        return $this-> hasMany(user::class) 
-            ->orderBy('');
+        return $this-> belongsTo(Locker::class);
     }
-    // public function lockers(): HasMany
-
-    // {
-    //     return $this-> hasMany(locker::class) 
-    //         ->orderBy('title');
-    // }
 }
             

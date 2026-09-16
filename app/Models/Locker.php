@@ -12,18 +12,14 @@ class Locker extends Model
         'location_id',
     ];
 
-    // public function location()
-    // {
-    //     return $this->belongsTo(Location::class);
-    // }
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 
-    // public function userHistories()
-    // {
-    //     return $this->hasMany(UserHistory::class);
-    // }
 
-    // public function maintenances()
-    // {
-    //     return $this->hasMany(Maintenance::class);
-    // }
+    public function maintenance()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
 }

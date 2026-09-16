@@ -12,10 +12,11 @@ class History extends Model
         'start_time',
         'end_time',
     ];
-    // public function lockers(): HasMany
+    
+    public function lockers(): HasMany
 
-    // {
-    //     return $this-> hasMany(Locker::class) 
-    //         ->orderBy('title');
-    // }
+    {
+        return $this-> hasMany(Locker::class) 
+            ->orderBy('title');
+    }
 }

@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignID("locker_id")->constrained();
-            $table->foreignID("user_id")->constrained();
-            $table->string("start_time");
-            $table->string("end_time");
+
+            $table->unsignedBigInteger('locker_id');
+            $table->foreign('locker_id')->references('id')->on('lockers');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->timestamp("start_time");
+            $table->timestamp("end_time");
             $table->timestamps();
         });
     }
