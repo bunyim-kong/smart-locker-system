@@ -20,7 +20,6 @@ class Maintenance extends Model
     }
 
     public function locker()
-
     {
         return $this-> belongsTo(Locker::class);
     }
