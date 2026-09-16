@@ -13,10 +13,14 @@ class History extends Model
         'end_time',
     ];
     
-    public function lockers(): HasMany
+    public function locker()
 
     {
-        return $this-> hasMany(Locker::class) 
-            ->orderBy('title');
+        return $this-> belongsTo(Locker::class);
+    }
+
+    public function user()
+    {
+        return $this-> belongsTo(User::class);
     }
 }
