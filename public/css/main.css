@@ -1,0 +1,10 @@
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+}
+
+body {
+    background-color: var(--color-bg);
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
