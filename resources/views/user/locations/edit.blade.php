@@ -1,24 +1,39 @@
-<form action="{{ route('locations.update', $location) }}" method="POST">
-    @csrf
-    @method('PUT')
+@extends('layouts.app')
 
-    <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="{{ old('name', $location->name) }}">
-        @error('name') <span class="text-danger">{{ $message }}</span> @enderror
-    </div>
+@section('content')
 
-    <div>
-        <label for="address">Address</label>
-        <input type="text" name="address" id="address" value="{{ old('address', $location->address) }}">
-        @error('address') <span class="text-danger">{{ $message }}</span> @enderror
-    </div>
+<div style="max-width: 700px; margin: 40px auto; padding: 0 20px;">
 
-    <div>
-        <label for="map_link">Map Link</label>
-        <input type="text" name="map_link" id="map_link" value="{{ old('map_link', $location->map_link) }}">
-        @error('map_link') <span class="text-danger">{{ $message }}</span> @enderror
-    </div>
+    <h1>Edit Location</h1>
 
-    <button type="submit">Update Location</button>
-</form>
+    @if ($errors->any())
+        <ul style="color: red;">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form action="{{ route('locations.update', $location) }}" method="POST">
+        @csrf
+        @method('PUT')
+        <div>
+            <label>Name:</label><br>
+            <input type="text" name="name" value="{{ old('name', $location->name) }}">
+        </div>
+        <div>
+            <label>Address:</label><br>
+            <input type="text" name="address" value="{{ old('address', $location->address) }}">
+        </div>
+        <div>
+            <label>Map Link:</label><br>
+            <input type="text" name="map_link" value="{{ old('map_link', $location->map_link) }}">
+        </div>
+        <button type="submit">Update Location</button>
+    </form>
+
+    <p><a href="{{ route('locations.index') }}">← Back to list</a></p>
+
+</div>
+
+@endsection
