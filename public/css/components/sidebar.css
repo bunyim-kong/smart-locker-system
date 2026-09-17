@@ -1,0 +1,30 @@
+.sidebar {
+    background-color: #FFFFFF;
+    border-color: var(--color-border);
+}
+
+.sidebar-container ul li a {
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: all .1s ease;
+}
+
+.sidebar-container ul li a:hover {
+    background-color: var(--color-btn-primary);
+    color: var(--color-btn-text);
+}
+
+.sidebar-container ul li a.active {
+    background-color: var(--color-btn-primary);
+    color: var(--color-btn-text);
+}
+
+.logout {
+    background-color: var(--color-danger);
+    color: var(--color-btn-text);
+}
+
+.logout:hover {
+    background-color: #ec2e2e;
+    color: var(--color-btn-text);
+}

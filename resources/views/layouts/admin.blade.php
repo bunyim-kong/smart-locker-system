@@ -9,13 +9,18 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components/sidebar.css') }}">
+
+    <!-- flowbite -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    
 </head>
 <body>
     @include('admin.partial.sidebar')
 
     <div class="admin-container flex-1 flex flex-col min-h-screen">
 
-        @include('admin.partial.header')
+
 
         <main class="flex-1 p-6 overflow-y-auto">
             @yield('content')
