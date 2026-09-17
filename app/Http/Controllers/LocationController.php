@@ -10,11 +10,11 @@ class LocationController extends Controller
     public function index()
     {
         $locations = Location::all();
-        return view('locations.index', compact('locations'));
+        return view('user.locations.index', compact('locations'));
     }
     public function create()
     {
-        return view('locations.create');
+        return view('user.locations.create');
     }
     public function store(Request $request)
     {
