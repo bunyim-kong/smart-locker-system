@@ -12,29 +12,34 @@ class LocationController extends Controller
         $locations = Location::all();
         return view('user.locations.index', compact('locations'));
     }
+
     public function create()
     {
         return view('user.locations.create');
     }
+    
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'address' => 'required',
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255', 'unique:locations,address'],
             'map_link' => 'required',
         ]);
 
         Location::create($request->all());
         return redirect()->route('locations.index')->with('success', 'Location created successfully.');
     }
+
     public function show(Location $location)
     {
         return view('locations.show', compact('location'));
     }
+
     public function edit(Location $location)
     {
         return view('locations.edit', compact('location'));
     }
+
     public function update(Request $request, Location $location)
     {
         $request->validate([
@@ -46,6 +51,7 @@ class LocationController extends Controller
         $location->update($request->all());
         return redirect()->route('locations.index')->with('success', 'Location updated successfully.');
     }
+    
     public function destroy(Location $location)
     {
         $location->delete();
