@@ -1,17 +1,14 @@
-{{--
-    resources/views/admin/partial/header.blade.php
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 
-    Include from your layout (e.g. resources/views/layouts/admin.blade.php):
-        @include('admin.partial.header')
-
-    Stylesheet: public/css/components/header.css
-    Add this once in your layout's <head>:
-        <link rel="stylesheet" href="{{ asset('css/components/header.css') }}">
-
-    Static version: no auth(), no dynamic title, no JS. Everything is hardcoded.
---}}
-
-<header class="admin-header">
+    <link rel="stylesheet" href="{{ asset('css/components/header.css') }}">
+</head>
+<body>
+    <header class="admin-header">
     <h1 class="admin-header__title">Dashboard</h1>
 
     <div class="admin-header__user">
@@ -22,3 +19,5 @@
         </svg>
     </div>
 </header>
+</body>
+</html>

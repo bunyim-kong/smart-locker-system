@@ -1,18 +1,16 @@
-/* public/css/components/header.css */
-
 .admin-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: var(--color-card);
-    padding: 24px 32px;
+    padding: 18px 32px;
     border-bottom: 1px solid var(--color-border);
     gap: 16px;
 }
 
 .admin-header__title {
     margin: 0;
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 700;
     color: #111827;
 }
