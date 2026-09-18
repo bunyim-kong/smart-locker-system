@@ -1,0 +1,90 @@
+.admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-card);
+    padding: 18px 32px;
+    border-bottom: 1px solid var(--color-border);
+    gap: 16px;
+}
+
+.admin-header__title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.admin-header__user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.admin-header__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #312e81;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.admin-header__name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+    white-space: nowrap;
+}
+
+.admin-header__chevron {
+    width: 16px;
+    height: 16px;
+    color: #9ca3af;
+    flex-shrink: 0;
+}
+
+/* Tablet: tighten spacing */
+@media (max-width: 1024px) {
+    .admin-header {
+        padding: 20px 24px;
+    }
+
+    .admin-header__title {
+        font-size: 26px;
+    }
+}
+
+/* Mobile: shrink further, drop the name to save space */
+@media (max-width: 640px) {
+    .admin-header {
+        padding: 16px;
+    }
+
+    .admin-header__title {
+        font-size: 20px;
+    }
+
+    .admin-header__name {
+        display: none;
+    }
+
+    .admin-header__avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+}
+
+/* Very small screens: hide the chevron too */
+@media (max-width: 400px) {
+    .admin-header__chevron {
+        display: none;
+    }
+}
