@@ -57,26 +57,25 @@
 
             <br>
 
-            <select name="status" required>
+             <select
+                name="status"
+                id="status"
+                required
+            >
 
-                <option
-                    value="available"
-                    {{ $locker->status == 'available' ? 'selected' : '' }}
-                >
+                <option value="">
+                     Select Status 
+                </option>
+
+                <option value="Available">
                     Available
                 </option>
 
-                <option
-                    value="occupied"
-                    {{ $locker->status == 'occupied' ? 'selected' : '' }}
-                >
-                    Occupied
+                <option value="In Use">
+                    In-Used
                 </option>
 
-                <option
-                    value="maintenance"
-                    {{ $locker->status == 'maintenance' ? 'selected' : '' }}
-                >
+                <option value="Maintenance">
                     Maintenance
                 </option>
 

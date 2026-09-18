@@ -12,7 +12,7 @@ class LockerController extends Controller
     // Show all lockers
     public function index()
     {
-        $lockers = Locker::with('location')->latest()->get();
+        $lockers = Locker::get();
 
         return view('admin.lockers.index', compact('lockers'));
     }
@@ -30,7 +30,7 @@ class LockerController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'status' => 'required|string|max:50',
+            'status' => 'required|string|in:Available,In Use,Maintenance',
             'location_id' => 'required|exists:locations,id',
         ]);
 
