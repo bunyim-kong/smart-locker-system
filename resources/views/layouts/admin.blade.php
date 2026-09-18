@@ -16,15 +16,16 @@
     
 </head>
 <body>
-    @include('admin.partial.sidebar')
+    <section class="flex">
+        @include('admin.partial.sidebar')
 
-    <div class="admin-container flex-1 flex flex-col min-h-screen">
+        <div class="admin-container flex-1 flex flex-col min-h-screen sm:ml-64">
+            @include('admin.partial.header')
 
-
-
-        <main class="flex-1 p-6 overflow-y-auto">
-            @yield('content')
-        </main>
-    </div>
+            <main class="flex-1 p-6 overflow-y-auto">
+                @yield('content')
+            </main>
+        </div>
+    </section>
 </body>
 </html>
