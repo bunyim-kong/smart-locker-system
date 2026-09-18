@@ -1,0 +1,156 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Add Locker</title>
+</head>
+
+<body>
+
+<div style="max-width: 600px; margin: 40px auto;">
+
+    <h1>Add New Locker</h1>
+
+
+    {{-- Validation errors --}}
+
+    @if ($errors->any())
+
+        <div style="color: red;">
+
+            <ul>
+
+                @foreach ($errors->all() as $error)
+
+                    <li>
+                        {{ $error }}
+                    </li>
+
+                @endforeach
+
+            </ul>
+
+        </div>
+
+    @endif
+
+
+    <form
+        action="{{ route('lockers.store') }}"
+        method="POST"
+    >
+
+        @csrf
+
+
+        {{-- Locker Name --}}
+
+        <div style="margin-bottom: 15px;">
+
+            <label for="name">
+                Locker Name
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ old('name') }}"
+                required
+            >
+
+        </div>
+
+
+        {{-- Status --}}
+
+        <div style="margin-bottom: 15px;">
+
+            <label for="status">
+                Status
+            </label>
+
+            <br>
+
+            <select
+                name="status"
+                id="status"
+                required
+            >
+
+                <option value="">
+                     Select Status 
+                </option>
+
+                <option value="available">
+                    Available
+                </option>
+
+                <option value="occupied">
+                    Occupied
+                </option>
+
+                <option value="maintenance">
+                    Maintenance
+                </option>
+
+            </select>
+
+        </div>
+
+
+        {{-- Location --}}
+
+        <div style="margin-bottom: 15px;">
+
+            <label for="location_id">
+                Location
+            </label>
+            <br>
+            <select>
+
+                 <option value="">
+                     pp
+                </option>
+
+                <option value="">
+                    kpt
+                </option>
+
+                <option value="">
+                    sr
+                </option>
+
+            </select>
+
+        </div>
+
+
+        {{-- Buttons --}}
+
+        <button type="submit">
+            Save Locker
+        </button>
+
+        <a href="{{ route('lockers.index') }}">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>
+
