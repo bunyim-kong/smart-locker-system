@@ -21,8 +21,8 @@ class Locker extends Model
         return $this -> belongsTo(Location::class);
     }
 
-    public function used_history() {
-        return $this -> hasMany(UsedHistory::class);
+    public function history() {
+        return $this -> hasMany(History::class);
     }
 
     public function maintenance() {

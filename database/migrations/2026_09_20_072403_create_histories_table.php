@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('used_histories', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
 
             $table->unsignedBigInteger('locker_id');
             $table->foreign('locker_id')->references('id')->on('lockers');
 
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->timestamp("start_time");
+            $table->timestamp("end_time");
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('used_histories');
+        Schema::dropIfExists('histories');
     }
 };
