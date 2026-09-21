@@ -7,7 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Show all lockers
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('lockers', LockerController::class);
+});
+// lockers route
 Route::get('/lockers', [LockerController::class, 'index'])->name('lockers.index');
 Route::get('/lockers/create', [LockerController::class, 'create'])->name('lockers.create');
 Route::post('/lockers', [LockerController::class, 'store'])->name('lockers.store');
