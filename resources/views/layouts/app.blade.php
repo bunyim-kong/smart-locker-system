@@ -13,7 +13,7 @@
 <body>
     @include('user.partials.navbar')
 
-    <main class="app-container">
+    <main class="mx-auto mb-6 mt-[88px] w-full max-w-7xl max-md:px-[30px]">
         @yield('content');
     </main>
 
