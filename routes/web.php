@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LockerController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MaintenanceController;
 
 Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
 Route::get('/locations/create', [LocationController::class, 'create'])->name('locations.create');
@@ -25,3 +26,12 @@ Route::get('/lockers/{locker}', [LockerController::class, 'show'])->name('locker
 Route::get('/lockers/{locker}/edit', [LockerController::class, 'edit'])->name('lockers.edit');
 Route::put('/lockers/{locker}', [LockerController::class, 'update'])->name('lockers.update');
 Route::delete('/lockers/{locker}', [LockerController::class, 'destroy'])->name('lockers.destroy');
+
+// Maintenance Route
+Route::get('/maintenances', [MaintenanceController::class, 'index'])->name('maintenances.index');
+Route::get('/maintenances/create', [MaintenanceController::class, 'create'])->name('maintenances.create');
+Route::post('/maintenances', [MaintenanceController::class, 'store'])->name('maintenances.store');
+Route::get('/maintenances/{maintenance}', [MaintenanceController::class, 'show'])->name('maintenances.show');
+Route::get('/maintenances/{maintenance}/edit', [MaintenanceController::class, 'edit'])->name('maintenances.edit');
+Route::put('/maintenances/{maintenance}', [MaintenanceController::class, 'update'])->name('maintenances.update');
+Route::delete('/maintenances/{maintenance}', [MaintenanceController::class, 'destroy'])->name('maintenances.destroy');
