@@ -19,5 +19,4 @@
 
     
     @include('front.partials.footer')
-</body>
 </html>
