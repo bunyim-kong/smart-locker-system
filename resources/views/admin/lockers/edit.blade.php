@@ -60,21 +60,21 @@
             <select name="status" required>
 
                 <option
-                    value="available"
+                    value="Available"
                     {{ $locker->status == 'available' ? 'selected' : '' }}
                 >
                     Available
                 </option>
 
                 <option
-                    value="occupied"
-                    {{ $locker->status == 'occupied' ? 'selected' : '' }}
+                    value="In Use"
+                    {{ $locker->status == 'in-used' ? 'selected' : '' }}
                 >
-                    Occupied
+                    In Used
                 </option>
 
                 <option
-                    value="maintenance"
+                    value="Maintenance"
                     {{ $locker->status == 'maintenance' ? 'selected' : '' }}
                 >
                     Maintenance

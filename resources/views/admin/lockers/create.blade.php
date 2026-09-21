@@ -92,15 +92,15 @@
                      Select Status 
                 </option>
 
-                <option value="available">
+                <option value="Available">
                     Available
                 </option>
 
-                <option value="occupied">
-                    Occupied
+                <option value="In Use">
+                    In-Used
                 </option>
 
-                <option value="maintenance">
+                <option value="Maintenance">
                     Maintenance
                 </option>
 
@@ -117,21 +117,18 @@
                 Location
             </label>
             <br>
-            <select>
-
-                 <option value="">
-                     pp
-                </option>
-
-                <option value="">
-                    kpt
-                </option>
-
-                <option value="">
-                    sr
-                </option>
-
+            <select name="location_id" id="location_id">
+                <option value="">-- Select a location --</option>
+                @foreach ($locations as $location)
+                    <option value="{{ $location->id }}"
+                        {{ old('location_id', $locker->location_id ?? '') == $location->id ? 'selected' : '' }}>
+                        {{ $location->name }}
+                    </option>
+                @endforeach
             </select>
+            @error('location_id')
+                <span style="color: red;">{{ $message }}</span>
+            @enderror
 
         </div>
 
