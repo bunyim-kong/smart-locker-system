@@ -78,4 +78,9 @@ class LockerController extends Controller
 
         return redirect()->route('lockers.index')->with('success', 'Locker deleted successfully.');
     }
+
+    public function show(Locker $locker)
+    {
+       return view('admin.lockers.show', compact('locker'));
+    }
 }
