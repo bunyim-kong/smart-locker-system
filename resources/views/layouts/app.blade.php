@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="{{ asset('css/components/footer.css') }}">
 </head>
 <body>
-    @include('front.partials.navbar')
+    @include('admin.partials.navbar')
 
     <main>
         @yield('content');
     </main>
 
     
-    @include('front.partials.footer')
+    @include('admin.partials.footer')
 </html>
