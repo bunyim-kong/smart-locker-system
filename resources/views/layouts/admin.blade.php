@@ -22,7 +22,7 @@
         <div class="admin-container flex-1 flex flex-col min-h-screen sm:ml-64">
             @include('admin.partial.header')
 
-            <main class="flex-1 p-6 overflow-y-auto">
+            <main class="flex-1 px-6 pt-2 pb-4 overflow-y-auto">
                 @yield('content')
             </main>
         </div>

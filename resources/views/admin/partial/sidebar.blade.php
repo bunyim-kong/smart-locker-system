@@ -24,9 +24,18 @@
         <aside id="logo-sidebar" class="sidebar fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
             <div class="sidebar-container flex justify-between flex-col h-full px-3 py-4 overflow-y-auto bg-neutral-primary-soft border-e border-default">
                 <div class="">
-                    <a href="" class="flex items-center justify-center ps-2.5 mb-2">
-                        <img src="/images/logo.webp" class="h-24 me-3" alt="Flowbite Logo" />
-                    </a>
+                    <div class="sidebar-logo">
+                        <a href="/home" class="logo-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar-logo-icon">
+                                <path d="M19 8V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16"/>
+                                <path d="M2 21h8"/>
+                                <path d="M20 16v-2a2 2 0 00-4 0v2"/>
+                                <path d="M9 12h.01"/>
+                                <rect x="14" y="16" width="8" height="5" rx="1"/>
+                            </svg>
+                            <span class="logo-text">SMART<span class="logo-accent">LOCKER</span></span>
+                        </a>
+                    </div>
 
                     <ul class="space-y-2 font-medium">
                         <li>
