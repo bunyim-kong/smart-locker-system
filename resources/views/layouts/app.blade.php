@@ -13,7 +13,7 @@
 <body>
     @include('user.partials.navbar')
 
-    <main>
+    <main class="app-container">
         @yield('content');
     </main>
 
