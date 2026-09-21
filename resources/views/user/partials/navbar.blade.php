@@ -10,8 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <header class="fixed top-0 left-0 m-0 flex w-full flex-col items-center justify-center border-b-2 border-[var(--color-border)] bg-white/90 p-0">
-        <div class="m-0 flex w-full max-w-7xl items-center justify-between bg-white/90 max-md:px-[30px] max-md:py-3">
+    <header class="fixed top-0 left-0 z-40 m-0 flex w-full flex-col items-center justify-center border-b-2 border-[var(--color-border)] bg-white/100 p-0">
+        <div class="m-0 flex w-full max-w-7xl items-center justify-between max-md:px-[30px] max-md:py-3">
             <a href="#" class="inline-flex items-center gap-2.5 no-underline">
                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                     <rect width="36" height="36" rx="9" fill="var(--color-primary-soft)"/>

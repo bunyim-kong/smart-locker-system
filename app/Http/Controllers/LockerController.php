@@ -12,7 +12,7 @@ class LockerController extends Controller
     // Show all lockers
     public function index()
     {
-        $lockers = Locker::with('location')->latest()->get();
+        $lockers = Locker::with('location')->get();
 
         return view('admin.lockers.index', compact('lockers'));
     }

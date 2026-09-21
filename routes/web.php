@@ -14,8 +14,11 @@ Route::delete('/locations/{location}', [LocationController::class, 'destroy'])->
 
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $locations = \App\Models\Location::with('locker')->get();
+    $lockers = \App\Models\Locker::all();
+
+    return view('user.home', compact('locations', 'lockers'));
+})->name('home');
 
 // Show all lockers
 Route::get('/lockers', [LockerController::class, 'index'])->name('lockers.index');
