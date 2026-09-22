@@ -10,12 +10,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'role'])]
+#[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+      protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+    ];
+
+
+    // public function userHistories()
+    // {
+    //     return $this->hasMany(UserHistory::class);
+    // }
+
+    // public function maintenances()
+    // {
+    //     return $this->hasMany(Maintenance::class);
+    // }
+    
 
     /**
      * Get the attributes that should be cast.
@@ -28,23 +47,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    /**
-     * check mer tha jea admin or ot
-     */
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
-    public function history()
-    {
-        return $this->hasMany(History::class);
-    }
-
-    public function maintenance()
-    {
-        return $this->hasMany(Maintenance::class);
     }
 }

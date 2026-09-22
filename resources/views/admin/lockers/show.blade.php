@@ -1,64 +1,101 @@
+{{-- resources/views/admin/lockers/index.blade.php --}}
 @extends('layouts.admin')
 
 @section('content')
+<div class="p-6">
 
-    @php
-        $statusColor = match ($locker->status) {
-            'Available'   => '#16a34a',
-            'Maintenance' => '#dc2626',
-            default       => '#92400e',
-        };
+    @if (session('success'))
+        <div class="mb-4 px-4 py-2 bg-green-50 text-green-700 text-sm rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        $details = [
-            'Location'            => $locker->location->name ?? '—',
-            'Size'                => $locker->size ?? '—',
-            'Status'              => $locker->status,
-            'Usage records'       => $locker->history->count(),
-            'Maintenance records' => $locker->maintenance->count(),
-            'Created'             => $locker->created_at->format('d M Y, h:i A'),
-            'Last updated'        => $locker->updated_at->format('d M Y, h:i A'),
-        ];
-    @endphp
+    <form method="GET" action="{{ route('lockers.index') }}" class="flex items-center gap-3 mb-4">
+        <div class="relative flex-1">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by locker name or location..."
+                   class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
 
-    <h1 style="margin: 0 0 24px; font-size: 26px; font-weight: 700; color: #1f2937;">Locker {{ $locker->name }}</h1>
+        <div class="relative">
+            <i class="fa-solid fa-filter absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none"></i>
+            <select name="status" onchange="this.form.submit()"
+                    class="appearance-none pl-9 pr-8 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">All statuses</option>
+                @foreach (['Available', 'In Use', 'Maintenance'] as $status)
+                    <option value="{{ $status }}" @selected(request('status') == $status)>{{ $status }}</option>
+                @endforeach
+            </select>
+        </div>
 
-    <div style="max-width: 520px; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 8px 28px;">
+        @if (request('search') || request('status'))
+            <a href="{{ route('lockers.index') }}" class="text-sm text-gray-400 hover:text-gray-600">
+                <i class="fa-solid fa-xmark mr-1"></i>Clear
+            </a>
+        @endif
 
-        @foreach ($details as $title => $value)
-            <div style="display: flex; justify-content: space-between; padding: 16px 0; font-size: 14px;">
-                <span style="color: #6b7280;">{{ $title }}</span>
-
-                @if ($title === 'Status')
-                    <span style="font-weight: 600; ">{{ $value }}</span>
-                @else
-                    <span style="font-weight: 600; color: #374151;">{{ $value }}</span>
-                @endif
-            </div>
-        @endforeach
-
-    </div>
-
-    {{-- Buttons --}}
-    <div style="display: flex; gap: 12px; margin-top: 20px;">
-        <a href="{{ route('lockers.edit', $locker) }}"
-           style="padding: 10px 20px; background: #2563eb; color: #ffffff; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none;">
-            Edit locker
+        <a href="{{ route('lockers.create') }}"
+           class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 ml-auto">
+            <i class="fa-solid fa-plus text-xs"></i>
+            Add locker
         </a>
+    </form>
 
-        <a href="{{ route('lockers.index') }}"
-           style="padding: 10px 20px; background: #ffffff; color: #374151; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none;">
-            Back
-        </a>
-
-        <form action="{{ route('lockers.destroy', $locker) }}" method="POST" style="margin: 0;"
-              onsubmit="return confirm('Delete locker {{ $locker->name }}?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit"
-                    style="padding: 10px 20px; background: #ffffff; color: #dc2626; border: 1px solid #fecaca; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;">
-                Delete
-            </button>
-        </form>
+    <div class="bg-white border border-gray-100 rounded-xl overflow-hidden">
+        <table class="w-full text-sm table-fixed">
+            <thead>
+                <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wide">
+                    <th class="w-[18%] text-left font-medium px-6 py-3">Locker</th>
+                    <th class="w-[16%] text-left font-medium px-6 py-3">Location</th>
+                    <th class="w-[16%] text-left font-medium px-6 py-3">Status</th>
+                    <th class="w-[26%] text-left font-medium px-6 py-3">Detail</th>
+                    <th class="w-[24%] text-right font-medium px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($lockers as $locker)
+                    <tr class="border-b border-gray-50 last:border-0 hover:bg-gray-50">
+                        <td class="w-[18%] px-6 py-4 font-semibold text-gray-900 truncate">{{ $locker->name }}</td>
+                        <td class="w-[16%] px-6 py-4 text-gray-500 truncate">{{ $locker->location->name ?? '—' }}</td>
+                        <td class="w-[16%] px-6 py-4">
+                            @php
+                                $statusStyles = [
+                                    'In Use' => 'text-orange-500',
+                                    'Available' => 'text-green-600',
+                                    'Maintenance' => 'text-red-500',
+                                ];
+                            @endphp
+                            <span class="font-medium {{ $statusStyles[$locker->status] ?? 'text-gray-500' }}">
+                                {{ $locker->status }}
+                            </span>
+                        </td>
+                        <td class="w-[26%] px-6 py-4 text-gray-500 truncate">
+                            Updated {{ $locker->updated_at->diffForHumans() }}
+                        </td>
+                        <td class="w-[24%] px-6 py-4">
+                            <div class="flex items-center justify-end gap-5">
+                                <a href="{{ route('lockers.show', $locker) }}" class="text-gray-500 hover:text-gray-700 text-base">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                <a href="{{ route('lockers.edit', $locker) }}" class="text-blue-500 hover:text-blue-600 text-base">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                <form action="{{ route('lockers.destroy', $locker) }}" method="POST" onsubmit="return confirm('Delete this locker?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-600 text-base">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-6 text-center text-gray-400">No lockers match your search.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
-
+</div>
 @endsection

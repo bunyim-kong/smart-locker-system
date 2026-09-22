@@ -8,6 +8,7 @@ class Locker extends Model
 {
     protected $fillable = [
         'name',
+        'size',
         'status',
         'location_id',
     ];

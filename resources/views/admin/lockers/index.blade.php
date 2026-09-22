@@ -1,99 +1,107 @@
+{{-- resources/views/admin/lockers/index.blade.php --}}
 @extends('layouts.admin')
 
 @section('content')
+<div class="p-6">
+    <!-- <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">Lockers</h1>
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center text-sm font-medium">
+                {{ Auth::user()->initials ?? 'AM' }}
+            </div>
+            <span class="text-sm font-medium text-gray-800">{{ Auth::user()->name ?? 'Alex Morgan' }}</span>
+        </div>
+    </div> -->
 
-    {{-- Page header --}}
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #111827;">Lockers</h1>
-
-        <a href="{{ route('lockers.create') }}"
-           style="background: #2563eb; color: #ffffff; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none;">
-            + Add Locker
-        </a>
-    </div>
-
-    {{-- Success message --}}
     @if (session('success'))
-        <div style="background: #dcfce7; color: #166534; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; font-size: 14px;">
+        <div class="mb-4 px-4 py-2 bg-green-50 text-green-700 text-sm rounded-lg">
             {{ session('success') }}
         </div>
     @endif
 
-    {{-- Table --}}
-    <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 14px; color: #374151;">
+    <div class="flex items-center gap-3 mb-4">
+        <div class="relative flex-1">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" placeholder="Search by locker name or location..."
+                   class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
 
+        <button class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h18M6 8h12M9 12h6M11 16h2" />
+            </svg>
+            Filter
+        </button>
+
+        <a href="{{ route('lockers.create') }}"
+           class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add locker
+        </a>
+    </div>
+
+    <div class="bg-white border border-gray-100 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
             <thead>
-                <tr style="background: #f9fafb;">
-                    <th style="padding: 14px 20px; text-align: left; font-size: 12px; font-weight: 600; color: #6b7280; border-bottom: 1px solid #e5e7eb;">LOCKER</th>
-                    <th style="padding: 14px 20px; text-align: left; font-size: 12px; font-weight: 600; color: #6b7280; border-bottom: 1px solid #e5e7eb;">LOCATION</th>
-                    <th style="padding: 14px 20px; text-align: left; font-size: 12px; font-weight: 600; color: #6b7280; border-bottom: 1px solid #e5e7eb;">STATUS</th>
-                    <th style="padding: 14px 20px; text-align: left; font-size: 12px; font-weight: 600; color: #6b7280; border-bottom: 1px solid #e5e7eb;">CREATED</th>
-                    <th style="padding: 14px 20px; text-align: right; font-size: 12px; font-weight: 600; color: #6b7280; border-bottom: 1px solid #e5e7eb;">ACTIONS</th>
+                <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wide">
+                    <th class="text-left font-medium px-6 py-3">Locker</th>
+                    <th class="text-left font-medium px-6 py-3">Location</th>
+                    <th class="text-left font-medium px-6 py-3">Size</th>
+                    <th class="text-left font-medium px-6 py-3">Status</th>
+                    <th class="text-left font-medium px-6 py-3">Detail</th>
+                    <th class="text-right font-medium px-6 py-3">Actions</th>
                 </tr>
             </thead>
-
             <tbody>
                 @forelse ($lockers as $locker)
-                    @php
-                        $statusColor = match ($locker->status) {
-                            'Available'   => '#16a34a',
-                            'Maintenance' => '#dc2626',
-                            default       => '#92400e', // In Use
-                        };
-                    @endphp
-
-                    <tr>
-                        <td style="padding: 18px 20px; font-weight: 600; border-bottom: 1px solid #f0f0f0;">
-                            <a href="{{ route('lockers.show', $locker) }}" style="color: #374151; text-decoration: none;">
-                                {{ $locker->name }}
-                            </a>
+                    <tr class="border-b border-gray-50 last:border-0 hover:bg-gray-50">
+                        <td class="px-6 py-4 font-semibold text-gray-900">{{ $locker->name }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ $locker->location->name ?? '—' }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ $locker->size }}</td>
+                        <td class="px-6 py-4">
+                            @php
+                                $statusStyles = [
+                                    'In Use' => 'text-orange-500',
+                                    'Available' => 'text-green-600',
+                                    'Maintenance' => 'text-red-500',
+                                ];
+                            @endphp
+                            <span class="font-medium {{ $statusStyles[$locker->status] ?? 'text-gray-500' }}">
+                                {{ $locker->status }}
+                            </span>
                         </td>
-
-                        <td style="padding: 18px 20px; color: #6b7280; border-bottom: 1px solid #f0f0f0;">
-                            {{ $locker->location->name ?? '—' }}
+                        <td class="px-6 py-4 text-gray-500">
+                            Updated {{ $locker->updated_at->diffForHumans() }}
                         </td>
-
-                        <td style="padding: 18px 20px; font-weight: 600; color: {{ $statusColor }}; border-bottom: 1px solid #f0f0f0;">
-                            {{ $locker->status }}
-                        </td>
-
-                        <td style="padding: 18px 20px; font-size: 13px; color: #4b5563; border-bottom: 1px solid #f0f0f0;">
-                            {{ $locker->created_at->format('d M Y, h:i A') }}
-                        </td>
-
-                        <td style="padding: 18px 20px; text-align: right; border-bottom: 1px solid #f0f0f0; white-space: nowrap;">
-                            <div style="display: inline-flex; align-items: center; gap: 12px;">
-
-                                {{-- Edit --}}
-                                <a href="{{ route('lockers.edit', $locker) }}" title="Edit" style="display: inline-flex; color: #374151;">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-end gap-3">
+                                <a href="{{ route('lockers.edit', $locker) }}" class="text-blue-500 hover:text-blue-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
                                 </a>
-
-                                {{-- Delete --}}
-                                <form action="{{ route('lockers.destroy', $locker) }}" method="POST" style="margin: 0;"
-                                      onsubmit="return confirm('Delete locker {{ $locker->name }}?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" title="Delete"
-                                            style="background: none; border: none; padding: 0; cursor: pointer; display: inline-flex; color: #dc2626;">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+                                <form action="{{ route('lockers.destroy', $locker) }}" method="POST" onsubmit="return confirm('Delete this locker?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-600">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3M4 7h16" />
+                                        </svg>
                                     </button>
                                 </form>
-
                             </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" style="padding: 40px 20px; text-align: center; color: #6b7280;">
-                            No lockers yet. <a href="{{ route('lockers.create') }}" style="color: #2563eb; font-weight: 600; text-decoration: none;">Add your first locker</a>.
-                        </td>
+                        <td colspan="6" class="px-6 py-6 text-center text-gray-400">No lockers yet.</td>
                     </tr>
                 @endforelse
             </tbody>
-
         </table>
     </div>
-
+</div>
 @endsection
