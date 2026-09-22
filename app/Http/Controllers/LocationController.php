@@ -9,7 +9,7 @@ class LocationController extends Controller
 {
     public function index()
     {
-        $locations = Location::all();
+        $locations = Location::orderBy('id')->get();
         return view('admin.locations.index', compact('locations'));
     }
 
@@ -49,7 +49,7 @@ class LocationController extends Controller
         ]);
 
         $location->update($request->all());
-        return redirect()->route('admin.locations.index')->with('success', 'Location updated successfully.');
+        return redirect()->route('locations.index')->with('success', 'Location updated successfully.');
     }
     
     public function destroy(Location $location)

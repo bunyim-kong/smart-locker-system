@@ -89,7 +89,7 @@
 
                     {{-- Free lockers (gray when it is 0) --}}
                     <td class="px-6 py-3.5 border-b border-gray-200">
-                        <span class="inline-flex items-center gap-2 font-semibold before:content-[''] before:w-[7px] before:h-[7px] before:rounded-full before:bg-current {{ $location->available_lockers_count == 0 ? 'text-gray-400' : 'text-green-600' }}">
+                        <span class="inline-flex items-center gap-2 font-semibold before:content-[''] before:w-[7px] before:h-[7px] before:rounded-full before:bg-current {{ $location->available_lockers_count == 0 ? 'text-green-400' : 'text-green-600' }}">
                             {{ $location->available_lockers_count }} free
                         </span>
                     </td>
