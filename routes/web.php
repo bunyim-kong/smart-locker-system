@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LockerController;
 use App\Http\Controllers\LocationController;
@@ -28,3 +29,21 @@ Route::get('/lockers/{locker}', [LockerController::class, 'show'])->name('locker
 Route::get('/lockers/{locker}/edit', [LockerController::class, 'edit'])->name('lockers.edit');
 Route::put('/lockers/{locker}', [LockerController::class, 'update'])->name('lockers.update');
 Route::delete('/lockers/{locker}', [LockerController::class, 'destroy'])->name('lockers.destroy');
+
+Route::get('/register', [AuthController::class, 'index'])->name('register');
+Route::post('/register', [AuthController::class, 'store'])->name('register.store');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'authenticate'])->name('login.store');
+
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->group(function() {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function() {
+    Route::get('/admin/dashboard', function () { 
+        return view('admin.dashboard'); })->name('admin.dashboard');
+});
