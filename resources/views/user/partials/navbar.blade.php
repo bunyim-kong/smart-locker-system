@@ -47,16 +47,29 @@
                 </ul>
             </nav>
 
-            <div class="flex items-center justify-center mr-4 gap-2.5">
-                <a href="" class="inline-flex items-center gap-2 no-underline hover:opacity-80">
+            <div class="flex items-center justify-center gap-2.5">
+                @auth
+                <a href="{{ route('user.profile') }}" class="inline-flex items-center gap-2 no-underline hover:opacity-80">
                     <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-heading)] text-xs font-semibold text-white">
-                        KB
+                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name)[1] ?? '', 0, 1)) }}
                     </span>
                     <span class="hidden flex-col leading-tight md:flex">
-                        <span class="text-sm font-semibold text-[var(--color-heading)]">Kong Bunyim</span>
-                        <span class="text-[11px] text-[var(--color-muted)]">User</span>
+                        <span class="text-sm font-semibold text-[var(--color-heading)]">{{ auth()->user()->name }}</span>
+                        <span class="text-[11px] text-[var(--color-muted)]">{{ auth()->user()->isAdmin() ? 'Admin' : 'User' }}</span>
                     </span>
                 </a>
+                @endauth
+
+                @guest
+                <div class="flex items-center justify-center gap-5">
+                    <a href="{{ route('login') }}" class="text-sm font-semibold text-[var(--color-primary)] no-underline hover:opacity-80">
+                    Log in
+                </a>
+                <a href="{{ route('register') }}" class="text-sm font-semibold rounded-md bg-[var(--color-primary)] py-2 px-6 text-[var(--color-btn-text)] transition duration-200 hover:bg-[var(--color-primary-hover)] no-underline hover:opacity-80">
+                    Register
+                </a>
+                </div>
+                @endguest
 
                 <button id="mobile-menu-toggle" class="cursor-pointer border-0 bg-transparent text-[var(--color-heading)] md:hidden" aria-label="Open menu" aria-controls="mobile-navlink" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-[30px] w-[30px]">

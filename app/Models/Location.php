@@ -11,7 +11,7 @@ class Location extends Model
         'map_link',
     ];
 
-    public function locker()
+    public function lockers()
 
     {
         return $this-> hasMany(Locker::class);

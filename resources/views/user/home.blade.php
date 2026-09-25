@@ -3,27 +3,28 @@
 @section('title', 'Home - Smart Locker')
 
 @php
-    $availableCount = $lockers->where('status', 'Available')->count();
-    $inUseCount = $lockers->where('status', 'In Use')->count();
+    $availableCount   = $lockers->where('status', 'Available')->count();
+    $inUseCount       = $lockers->where('status', 'In Use')->count();
     $maintenanceCount = $lockers->where('status', 'Maintenance')->count();
-    $locationCount = $locations->count();
-    $lockerCount = $lockers->count();
+    $locationCount    = $locations->count();
+    $lockerCount      = $lockers->count();
     $popularLocations = $locations->take(3);
-    $featured = $locations->first();
-    $sort = request('sort', 'nearest');
+    $featured         = $locations->first();
+    $sort             = request('sort', 'nearest');
 
     $sortedLocations = match ($sort) {
-        'available' => $locations->sortByDesc(fn ($location) => $location->locker->where('status', 'Available')->count()),
-        'az' => $locations->sortBy('name'),
-        default => $locations,
+        'available' => $locations->sortByDesc(fn ($location) =>
+                            $location->lockers->where('status', 'Available')->count()),
+        'az'        => $locations->sortBy('name'),
+        default     => $locations,
     };
 
     $stats = [
-        ['label' => 'Available', 'dot' => 'bg-[var(--color-success)]', 'value' => $availableCount],
-        ['label' => 'In Use', 'dot' => 'bg-[var(--color-primary)]', 'value' => $inUseCount],
+        ['label' => 'Available',   'dot' => 'bg-[var(--color-success)]', 'value' => $availableCount],
+        ['label' => 'In Use',      'dot' => 'bg-[var(--color-primary)]', 'value' => $inUseCount],
         ['label' => 'Maintenance', 'dot' => 'bg-[var(--color-warning)]', 'value' => $maintenanceCount],
-        ['label' => 'Location', 'dot' => 'bg-[#8b5cf6]', 'value' => $locationCount],
-    ]
+        ['label' => 'Location',    'dot' => 'bg-[#8b5cf6]',              'value' => $locationCount],
+    ];
 @endphp
 
 @section('content')
@@ -102,7 +103,7 @@
         </div>
     </section>
 
-    
+
     <section class="mx-auto w-full max-w-7xl px-0 pb-[70px] pt-5 max-md:px-[30px]">
         <div class="mb-[30px] flex items-end justify-between gap-[30px] max-md:flex-col max-md:items-start">
             <div>
@@ -125,11 +126,11 @@
         <div class="grid grid-cols-2 gap-3.5 max-md:grid-cols-1">
             @forelse ($sortedLocations as $location)
                 @php
-                    $total = $location->locker->count();
-                    $available = $location->locker->where('status', 'Available')->count();
-                    $inUse = $location->locker->where('status', 'In Use')->count();
-                    $maintenance = $location->locker->where('status', 'Maintenance')->count();
-                    $percent = $total > 0 ? (int) round(($available / $total) * 100) : 0;
+                    $total       = $location->lockers->count();
+                    $available   = $location->lockers->where('status', 'Available')->count();
+                    $inUse       = $location->lockers->where('status', 'In Use')->count();
+                    $maintenance = $location->lockers->where('status', 'Maintenance')->count();
+                    $percent     = $total > 0 ? (int) round(($available / $total) * 100) : 0;
 
                     if ($total === 0 || ($available === 0 && $inUse === 0 && $maintenance > 0)) {
                         $badge = 'maintenance';
@@ -143,13 +144,13 @@
                     }
 
                     $badgeClass = [
-                        'open' => 'bg-[#f0fdf4] text-[#15803d]',
-                        'full' => 'bg-[#fef2f2] text-[#dc2626]',
+                        'open'        => 'bg-[#f0fdf4] text-[#15803d]',
+                        'full'        => 'bg-[#fef2f2] text-[#dc2626]',
                         'maintenance' => 'bg-[#fffbeb] text-[#b45309]',
                     ][$badge];
                     $dotClass = [
-                        'open' => 'bg-[var(--color-success)]',
-                        'full' => 'bg-[var(--color-danger)]',
+                        'open'        => 'bg-[var(--color-success)]',
+                        'full'        => 'bg-[var(--color-danger)]',
                         'maintenance' => 'bg-[var(--color-warning)]',
                     ][$badge];
                 @endphp
@@ -213,7 +214,7 @@
                                 Notify Me
                             </button>
                         @else
-                            <a href="{{ route('locations.show', $location) }}" class="mt-3.5 flex w-full max-w-[180px] items-center justify-center gap-[7px] rounded-[9px] bg-[var(--color-primary)] px-3 py-2.5 text-xs font-semibold text-white no-underline transition duration-200 hover:bg-[var(--color-primary-hover)] max-[480px]:max-w-none">
+                            <a href="{{ route('user.locations.show', $location) }}" class="mt-3.5 flex w-full max-w-[180px] items-center justify-center gap-[7px] rounded-[9px] bg-[var(--color-primary)] px-3 py-2.5 text-xs font-semibold text-white no-underline transition duration-200 hover:bg-[var(--color-primary-hover)] max-[480px]:max-w-none">
                                 View Lockers
                                 <svg class="h-3.5 w-3.5 stroke-current stroke-2" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12h14"></path>
@@ -229,7 +230,7 @@
         </div>
 
         <div class="mt-7 text-center">
-            <a href="{{ route('locations.index') }}" class="inline-flex items-center gap-[7px] text-[13px] font-semibold text-[var(--color-primary)] no-underline hover:text-[var(--color-primary-hover)]">
+            <a href="{{ route('user.locations.index') }}" class="inline-flex items-center gap-[7px] text-[13px] font-semibold text-[var(--color-primary)] no-underline hover:text-[var(--color-primary-hover)]">
                 View all locations
                 <svg class="h-[15px] w-[15px] stroke-current stroke-2" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12h14"></path>
@@ -274,8 +275,8 @@
 
                 @if ($featured)
                     @php
-                        $featuredTotal = $featured->locker->count();
-                        $featuredAvailable = $featured->locker->where('status', 'Available')->count();
+                        $featuredTotal     = $featured->lockers->count();
+                        $featuredAvailable = $featured->lockers->where('status', 'Available')->count();
                     @endphp
                     <div class="absolute top-[43%] left-[30%] flex min-w-[250px] items-center gap-2.5 rounded-[11px] bg-white p-[13px] shadow-[0_12px_30px_rgba(15,23,42,0.18)] max-[480px]:left-[10%] max-[480px]:min-w-[80%]">
                         <div class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[9px] bg-[var(--color-primary-light)] text-[var(--color-primary)]">
@@ -288,7 +289,7 @@
                             <strong class="text-xs text-[var(--color-heading)]">{{ $featured->name }}</strong>
                             <span class="mt-0.5 text-[9px] text-[var(--color-muted)]">{{ $featuredAvailable }} of {{ $featuredTotal }} lockers available</span>
                         </div>
-                        <a href="{{ route('locations.show', $featured) }}" class="text-[10px] font-bold text-[var(--color-primary)] no-underline">Open →</a>
+                        <a href="{{ route('user.locations.show', $featured) }}" class="text-[10px] font-bold text-[var(--color-primary)] no-underline">Open →</a>
                     </div>
                 @endif
             </div>

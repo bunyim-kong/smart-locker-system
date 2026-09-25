@@ -31,7 +31,7 @@ class AuthController extends Controller
         
         Auth::login($user);
 
-        return redirect()->route('userhome');
+        return redirect()->route('home');
     }
 
     // login
@@ -52,13 +52,13 @@ class AuthController extends Controller
             if (Auth::user()->isAdmin()) {
                 return redirect()->route('admin.dashboard');
             } else {
-                return redirect()->route('user.home');
+                return redirect()->route('home');
             }
-
-            return back()->withErrors([
-                'email' => 'The email or password is incorrect. Please check again!',
-            ])->onlyInput('email');
         }
+
+        return back()->withErrors([
+            'email' => 'The email of password is incorrect. Please check again!'
+        ]);
     }
 
     //logout
@@ -68,6 +68,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('auth.login');
+        return redirect()->route('login');
     }
 }
