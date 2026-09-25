@@ -3,15 +3,6 @@
 
 @section('content')
 <div class="p-6">
-    <!-- <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Lockers</h1>
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-full bg-gray-700 text-white flex items-center justify-center text-sm font-medium">
-                {{ Auth::user()->initials ?? 'AM' }}
-            </div>
-            <span class="text-sm font-medium text-gray-800">{{ Auth::user()->name ?? 'Alex Morgan' }}</span>
-        </div>
-    </div> -->
 
     @if (session('success'))
         <div class="mb-4 px-4 py-2 bg-green-50 text-green-700 text-sm rounded-lg">
