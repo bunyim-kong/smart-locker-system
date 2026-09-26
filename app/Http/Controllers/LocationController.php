@@ -5,16 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Location;
+use App\Models\Locker;
 
 class LocationController extends Controller
 {
     public function index()
     {
         $locations = Location::all();
+        $lockers = Locker::all();
 
-        return Auth::user()->isAdmin() 
-            ? view('admin.locations.index', compact('locations'))
-            : view('user.locations.index', compact('locations'));
+        return view('user.locations.index', compact('locations', 'lockers'));
     }
 
     public function show(Location $location)

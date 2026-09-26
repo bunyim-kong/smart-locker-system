@@ -27,6 +27,7 @@ Route::middleware('guest')->group( function () {
 
 // user route 
 Route::middleware('auth')->name('user.')->group(function () {
+    Route::get('/home', fn () => view('user.home'))->name('home');
     // user locations
     Route::get('/locations', [LocationController::class, 'index'])->name('locations.index');
     Route::get('/locations/{location}', [LocationController::class, 'show'])->name('locations.show');

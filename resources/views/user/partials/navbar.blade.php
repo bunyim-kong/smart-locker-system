@@ -33,16 +33,16 @@
             <nav class="hidden md:flex my-3">
                 <ul class="m-0 flex list-none gap-6 p-0 py-3">
                     <li class="m-0 p-0 list-none">
-                        <a class="text-base no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]" href="">Home</a>
+                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('home') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="m-0 p-0 list-none">
-                        <a class="text-base no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]" href="">Location</a>
+                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('user.locations.*') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('user.locations.index') }}">Location</a>
                     </li>
                     <li class="m-0 p-0 list-none">
-                        <a class="text-base no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]" href="">How to use</a>
+                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('how-to-use') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="">How to use</a>
                     </li>
                     <li class="m-0 p-0 list-none">
-                        <a class="text-base no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]" href="">About</a>
+                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('about') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="">About</a>
                     </li>
                 </ul>
             </nav>
@@ -82,10 +82,10 @@
         <div id="mobile-navlink" class="hidden w-full md:hidden">
             <ul class="m-0 flex list-none flex-col gap-2 px-3.5 py-1.5">
                 <li class="list-none">
-                    <a href="" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Home</a>
+                    <a href="{{ route('home') }}" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Home</a>
                 </li>
                 <li class="list-none">
-                    <a href="" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Location</a>
+                    <a href="{{ route('user.locations.index') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Location</a>
                 </li>
                 <li class="list-none">
                     <a href="" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">How to use</a>
