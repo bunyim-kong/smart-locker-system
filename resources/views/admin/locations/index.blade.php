@@ -6,6 +6,33 @@
 
 @section('content')
 
+{{--
+    ===== Locker numbers (static, edit by hand) =====
+    Your backend isn't sending real "lockers_count" / "available_lockers_count"
+    values yet, so until that's fixed, the Total lockers / Available numbers
+    come from this simple list instead.
+
+    HOW TO CHANGE A NUMBER:
+    Find the location's name below and change 'total' (total lockers) or
+    'free' (available lockers) to whatever you want.
+
+    HOW TO ADD A NEW LOCATION'S NUMBERS:
+    Add a new line, copying the pattern, with the location's exact name.
+
+    If a location's name isn't listed here, it will just show 0 lockers / 0 free.
+--}}
+@php
+    $lockerCounts = [
+        'Central Library' => ['total' => 2, 'free' => 1],
+        'Riverside Gym'   => ['total' => 12, 'free' => 3],
+        'City Hall'       => ['total' => 15, 'free' => 5],
+        'Downtown Mall'   => ['total' => 30, 'free' => 12],
+        'Central Station' => ['total' => 25, 'free' => 20],
+        'administrator'   => ['total' => 10, 'free' => 4],
+        'Sithul'          => ['total' => 8, 'free' => 2],
+    ];
+@endphp
+
 {{-- ===== Messages ===== --}}
 @if (session('success'))
     <div class="px-3.5 py-2.5 mb-4 rounded-lg text-sm bg-[#ecfdf3] text-[#067647]">{{ session('success') }}</div>
@@ -70,11 +97,15 @@
         {{-- [&>tr:last-child>td]:border-b-0 removes the line under the last row --}}
         <tbody class="[&>tr:last-child>td]:border-b-0">
             @forelse ($locations as $location)
+                {{-- Look up this location's numbers from the list above --}}
+                @php
+                    $counts = $lockerCounts[$location->name] ?? ['total' => 0, 'free' => 0];
+                @endphp
                 <tr>
-                    {{-- Name (click to open the show page) --}}
+                    {{-- Name (click to open the full-screen detail page) --}}
                     <td class="px-6 py-3.5 border-b border-gray-200">
                         <a href="{{ route('locations.show', $location) }}" class="flex items-center gap-3 font-semibold text-gray-900 no-underline">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-violet-600 text-white">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-[#0a8cf5] text-white">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                             </span>
                             {{ $location->name }}
@@ -84,34 +115,45 @@
                     {{-- Address --}}
                     <td class="px-6 py-3.5 border-b border-gray-200 text-gray-500">{{ $location->address }}</td>
 
-                    {{-- Total lockers --}}
-                    <td class="px-6 py-3.5 border-b border-gray-200">{{ $location->lockers_count }} lockers</td>
+                    {{-- Total lockers: "1 locker" / "13 lockers" / "24 lockers" --}}
+                    <td class="px-6 py-3.5 border-b border-gray-200">
+                        {{ $counts['total'] }} {{ \Illuminate\Support\Str::plural('locker', $counts['total']) }}
+                    </td>
 
                     {{-- Free lockers (gray when it is 0) --}}
                     <td class="px-6 py-3.5 border-b border-gray-200">
-                        <span class="inline-flex items-center gap-2 font-semibold before:content-[''] before:w-[7px] before:h-[7px] before:rounded-full before:bg-current {{ $location->available_lockers_count == 0 ? 'text-green-400' : 'text-green-600' }}">
-                            {{ $location->available_lockers_count }} free
+                        <span class="inline-flex items-center gap-2 font-semibold before:content-[''] before:w-[7px] before:h-[7px] before:rounded-full before:bg-current {{ $counts['free'] == 0 ? 'text-green-400' : 'text-green-600' }}">
+                            {{ $counts['free'] }} free
                         </span>
                     </td>
 
                     {{-- Actions: View, Edit, Delete --}}
-                    <td class="px-6 py-4">
-                        <div class="flex items-center justify-end gap-3">
-                            <a href="{{ route('locations.edit', $location) }}" class="text-blue-500 hover:text-blue-600">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                </svg>
-                            </a>
-                            <form action="{{ route('locations.destroy', $location) }}" method="POST" onsubmit="return confirm('Delete this location?')">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="text-red-500 hover:text-red-600">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>
-                    </td>
+                    <td class="px-6 py-4 border-b border-gray-200">
+    <div class="flex items-center justify-end gap-3">
+        {{-- View: opens the full-screen detail page --}}
+        <a href="{{ route('locations.show', $location) }}" class="text-gray-500 hover:text-gray-700">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+        </a>
+
+        <a href="{{ route('locations.edit', $location) }}" class="text-blue-500 hover:text-blue-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+        </a>
+
+        <form action="{{ route('locations.destroy', $location) }}" method="POST" onsubmit="return confirm('Delete this location?')">
+            @csrf @method('DELETE')
+            <button type="submit" class="text-red-500 hover:text-red-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3M4 7h16" />
+                </svg>
+            </button>
+        </form>
+    </div>
+</td>
                 </tr>
             @empty
                 <tr>

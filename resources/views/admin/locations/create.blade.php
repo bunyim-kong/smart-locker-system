@@ -3,8 +3,7 @@
 
 @section('content')
 
-{{-- ===== Card that holds the form ===== --}}
-<div class="max-w-[640px] p-6 border border-gray-200 rounded-xl bg-white">
+<div class="w-full p-6 border border-gray-200 rounded-xl bg-white">
     <form action="{{ route('locations.store') }}" method="POST">
         @csrf
 

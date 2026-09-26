@@ -5,12 +5,12 @@
 
 @section('content')
 
-{{-- ===== Card ===== --}}
-<div class="max-w-[640px] p-6 border border-gray-200 rounded-xl bg-white">
+<div class="w-full p-6 border border-gray-200 rounded-xl bg-white">
 
     {{-- Icon + name --}}
     <div class="flex items-center gap-3.5 mb-6">
-        <span class="flex items-center justify-center w-11 h-11 rounded-[10px] bg-violet-600 text-white">
+        {{-- Badge color matches your Figma blue instead of violet --}}
+        <span class="flex items-center justify-center w-11 h-11 rounded-[10px] bg-[#0a8cf5] text-white">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
         </span>
         <h2 class="m-0 text-xl font-bold text-gray-900">{{ $location->name }}</h2>
