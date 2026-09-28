@@ -98,6 +98,9 @@ class LockerController extends Controller
             if ($lockedLocker->history()->exists()) {
                 throw ValidationException::withMessages(['locker' => 'This locker has usage history and cannot be deleted.']);
             }
+            if ($lockedLocker->maintenance()->exists()) {
+                throw ValidationException::withMessages(['locker' => 'This locker has maintenance records and cannot be deleted.']);
+            }
             $lockedLocker->delete();
         });
 

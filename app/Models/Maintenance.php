@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class Maintenance extends Model
 {
     protected $fillable = [
@@ -14,14 +15,21 @@ class Maintenance extends Model
         'resolve_date',
     ];
 
-    public function user()
+    protected function casts(): array
     {
-        return $this-> belongsTo(User::class);
+        return [
+            'report_date' => 'date',
+            'resolve_date' => 'date',
+        ];
     }
 
-    public function locker()
+    public function user(): BelongsTo
     {
-        return $this-> belongsTo(Locker::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function locker(): BelongsTo
+    {
+        return $this->belongsTo(Locker::class);
     }
 }
-            

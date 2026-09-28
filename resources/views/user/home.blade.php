@@ -28,7 +28,7 @@
 
 @section('content')
 
-    <section class="relative flex min-h-[560px] items-center justify-center overflow-hidden bg-[var(--color-primary-dark)] text-white max-md:min-h-[620px]">
+    <section class="relative flex items-center justify-center overflow-hidden bg-[var(--color-primary-dark)] text-white">
         <div class="pointer-events-none absolute -top-[150px] -right-20 h-[300px] w-[300px] rounded-full bg-[rgba(13,110,253,0.18)]"></div>
         <div class="pointer-events-none absolute -bottom-[250px] -left-40 h-[380px] w-[380px] rounded-full bg-[rgba(96,165,250,0.1)]"></div>
 
@@ -38,9 +38,9 @@
             <path class="stroke-current" d="M20 20a70 70 0 0 1 70 70"></path>
         </svg>
 
-        <div class="relative z-[5] mx-auto w-full max-w-7xl px-6 pb-[130px] pt-[90px] text-center max-md:px-5 max-md:pt-20">
+        <div class="relative z-[5] mx-auto w-full max-w-7xl px-4 pb-24 pt-10 text-center sm:px-6 sm:pb-28 lg:pt-20">
 
-            <h1 class="mb-[18px] mt-[75px] text-[clamp(42px,7vw,72px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-white max-md:text-[44px] max-[480px]:text-[38px]">
+            <h1 class="mb-[18px] text-[clamp(42px,7vw,72px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-white max-md:text-[44px] max-[480px]:text-[38px]">
                 Find a locker.<br>
                 <span class="text-blue-400">Store it. Forget it.</span>
             </h1>
@@ -50,9 +50,9 @@
                 and reserve in seconds — no keys, no waiting.
             </p>
 
-            <div class="mx-auto mt-[35px] max-w-[760px]">
+            <div class="mx-auto mt-6 sm:mt-[35px] max-w-[760px]">
                 <form action="{{ url('/') }}" method="GET" class="flex items-center rounded-[14px] bg-white p-1.5 shadow-[0_20px_45px_rgba(0,0,0,0.2)] max-md:flex-col max-md:p-2">
-                    <div class="flex flex-1 items-center gap-3 px-[15px] max-md:w-full">
+                    <div class="flex min-w-0 flex-1 items-center gap-3 px-[15px] max-md:w-full">
                         <svg class="h-[21px] w-[21px] shrink-0 stroke-[#94a3b8] stroke-2" viewBox="0 0 24 24" fill="none">
                             <circle cx="11" cy="11" r="7"></circle>
                             <path d="M21 21l-4.3-4.3"></path>
@@ -62,7 +62,7 @@
                             name="q"
                             value="{{ request('q') }}"
                             placeholder="Search by location name, city, or address..."
-                            class="h-10 w-full border-0 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400 max-md:h-12"
+                            class="h-10 w-full min-w-0 border-0 bg-transparent text-base sm:text-sm text-slate-700 outline-none placeholder:text-slate-400 max-md:h-12"
                         >
                     </div>
                     <button type="submit" class="h-[50px] cursor-pointer rounded-[10px] border-0 bg-[var(--color-primary)] px-[26px] text-sm font-semibold text-white transition duration-200 hover:-translate-y-px hover:bg-[var(--color-primary-hover)] max-md:w-full">
@@ -88,12 +88,12 @@
     </section>
 
     <!-- stat card -->
-    <section class="bg-[var(--color-bg)] px-6 pb-[70px]">
+    <section class="bg-[var(--color-bg)] px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
         <div class="relative z-10 mx-auto mt-[-65px] grid w-full max-w-7xl grid-cols-4 gap-4 max-md:grid-cols-2 max-[480px]:gap-2.5">
             @foreach ($stats as $stat)
-                <div class="rounded-[14px] border-2 border-[var(--color-border)] bg-[var(--color-card)] px-[22px] py-[26px] shadow-[0_8px_25px_rgba(15,23,42,0.05)] max-[480px]:p-[17px]">
+                <div class="rounded-[14px] border-2 border-[var(--color-border)] bg-[var(--color-card)] px-[22px] py-[26px] shadow-[0_8px_25px_rgba(15,23,42,0.05)] max-[480px]:p-3">
                     <div class="flex items-center gap-2 text-[13px] font-semibold text-[var(--color-body)]">
-                        <span class="h-2 w-2 rounded-full {{ $stat['dot'] }}"></span>
+                        <span class="h-2 w-2 shrink-0 rounded-full {{ $stat['dot'] }}"></span>
                         {{ $stat['label'] }}
                     </div>
                     <strong class="mt-2 block text-[30px] font-extrabold text-[var(--color-heading)] max-[480px]:text-[25px]">{{ $stat['value'] }}</strong>
@@ -103,7 +103,7 @@
     </section>
 
 
-    <section class="mx-auto w-full max-w-7xl px-0 pb-[70px] pt-5 max-md:px-[30px]">
+    <section class="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
         <div class="mb-[30px] flex items-end justify-between gap-[30px] max-md:flex-col max-md:items-start">
             <div>
                 <span class="mb-2 block text-[11px] font-extrabold tracking-[0.12em] text-[var(--color-primary)]">LOCATIONS</span>
@@ -154,10 +154,10 @@
                     ][$badge];
                 @endphp
 
-                <article class="grid grid-cols-[1fr_180px] gap-[30px] rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] max-[900px]:grid-cols-1 max-[480px]:p-[18px]">
+                <article class="grid min-w-0 grid-cols-1 gap-5 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] max-[480px]:p-[18px]">
                     <div>
-                        <div class="flex items-start justify-between gap-5 max-[480px]:flex-col">
-                            <div class="flex items-center gap-[13px]">
+                        <div class="flex flex-wrap items-start justify-between gap-3">
+                            <div class="flex min-w-0 flex-1 items-center gap-[13px]">
                                 <div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[11px] bg-[var(--color-primary-light)] text-[var(--color-primary)]">
                                     <svg class="h-[21px] w-[21px] stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
                                         <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
@@ -169,7 +169,7 @@
                                     <p class="m-0 text-xs text-[var(--color-muted)]">{{ $location->address }}</p>
                                 </div>
                             </div>
-                            <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] font-bold {{ $badgeClass }}">
+                            <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] font-bold {{ $badgeClass }}">
                                 <span class="h-1.5 w-1.5 rounded-full {{ $dotClass }}"></span>
                                 {{ $badgeLabel }}
                             </span>
@@ -203,7 +203,7 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-end justify-center border-l border-[var(--color-border)] pl-[25px] text-right max-[900px]:items-start max-[900px]:border-l-0 max-[900px]:border-t max-[900px]:pt-5 max-[900px]:pl-0 max-[900px]:text-left max-[480px]:w-full">
+                    <div class="flex flex-col items-start border-t border-[var(--color-border)] pt-5 text-left">
                         <span class="text-[11px] text-[var(--color-muted)]">Starting from</span>
                         <strong class="mt-[3px] text-[21px] text-[var(--color-heading)]">Free</strong>
                         <small class="text-[10px] text-[var(--color-muted)]">first 2 hours</small>
@@ -224,7 +224,7 @@
                     </div>
                 </article>
             @empty
-                <p class="col-span-2 text-sm text-[var(--color-muted)]">No locations found.</p>
+                <p class="col-span-full text-sm text-[var(--color-muted)]">No locations found.</p>
             @endforelse
         </div>
 
@@ -239,7 +239,7 @@
         </div>
     </section>
 
-    <section aria-labelledby="locker-banner-title" class="relative overflow-hidden bg-[var(--color-primary-dark)] px-6 py-16 sm:py-20">
+    <section aria-labelledby="locker-banner-title" class="relative overflow-hidden bg-[var(--color-primary-dark)] px-4 py-10 sm:px-6 sm:py-20">
         <div aria-hidden="true" class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border border-[var(--color-primary)]/30"></div>
         <div aria-hidden="true" class="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full border border-[var(--color-primary)]/30"></div>
         <div class="relative mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
@@ -249,7 +249,7 @@
         </div>
     </section>
 
-    <section class="mx-auto w-full max-w-7xl px-0 pb-[70px] pt-[60px] max-md:px-[30px]">
+    <section class="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px] pt-10 sm:pt-[60px]">
         <div class="mb-10 text-center">
             <span class="mb-2 block text-[11px] font-extrabold tracking-[0.12em] text-[var(--color-primary)]">HOW IT WORKS</span>
             <h2 class="m-0 text-[30px] font-extrabold leading-[1.2] tracking-[-0.025em] text-[var(--color-heading)]">Three taps and you're done</h2>
@@ -258,17 +258,17 @@
 
         <div class="grid grid-cols-3 gap-5 max-md:grid-cols-1">
             <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
-                <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">1</div>
+                <div class="mx-auto mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">1</div>
                 <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Find a Locker</h3>
                 <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Browse locations and check which lockers are available before you visit.</p>
             </article>
             <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
-                <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">2</div>
+                <div class="mx-auto mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">2</div>
                 <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Get Your Code</h3>
                 <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Reserve the locker and receive a 6-digit one-time code instantly.</p>
             </article>
             <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
-                <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">3</div>
+                <div class="mx-auto mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">3</div>
                 <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Store & Go</h3>
                 <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Enter the code on the locker keypad, drop your stuff, and go.</p>
             </article>
@@ -285,10 +285,10 @@
         </div>
     </section>
 
-    <section class="mx-auto w-full max-w-7xl px-0 pb-[70px] max-md:px-[30px]">
+    <section class="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
         <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
             <div class="flex items-center gap-3.5 rounded-2xl border border-[var(--color-border)] bg-white p-5">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f0fdf4] text-[var(--color-success)]">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#f0fdf4] text-[var(--color-success)]">
                     <svg class="h-6 w-6 stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
                         <path d="M12 3 20 6v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3Z"></path>
                         <path d="m9 12 2 2 4-4"></path>
@@ -300,7 +300,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3.5 rounded-2xl border border-[var(--color-border)] bg-white p-5">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-primary-light)] text-[var(--color-primary)]">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary-light)] text-[var(--color-primary)]">
                     <svg class="h-6 w-6 stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="9"></circle>
                         <path d="M12 7v5l3 2"></path>
@@ -312,7 +312,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-3.5 rounded-2xl border border-[var(--color-border)] bg-white p-5">
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#fffbeb] text-[var(--color-warning)]">
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#fffbeb] text-[var(--color-warning)]">
                     <svg class="h-6 w-6 stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="9"></circle>
                         <path d="m8 12 2.5 2.5L16 9"></path>

@@ -20,7 +20,7 @@
                 placeholder="Your full name"
                 required
                 aria-invalid="{{ $errors->has('name') ? 'true' : 'false' }}"
-                class="h-9 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
+                class="h-11 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
             >
         </div>
 
@@ -35,7 +35,7 @@
                 placeholder="you@example.com"
                 required
                 aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}"
-                class="h-9 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
+                class="h-11 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
             >
         </div>
 
@@ -50,7 +50,7 @@
                 placeholder="Create a password"
                 required
                 aria-invalid="{{ $errors->has('password') ? 'true' : 'false' }}"
-                class="pr-10 h-9 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
+                class="pr-10 h-11 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
             >
                 <button type="button" data-password-toggle aria-controls="password" aria-label="Show password" aria-pressed="false" class="absolute inset-y-0 right-0 flex w-10 cursor-pointer items-center justify-center rounded-md text-[var(--color-body)] hover:text-[var(--color-primary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)]">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -73,7 +73,7 @@
                 placeholder="Repeat your password"
                 required
                 aria-invalid="{{ $errors->has('password_confirmation') ? 'true' : 'false' }}"
-                class="pr-10 h-9 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
+                class="pr-10 h-11 w-full min-w-0 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-2.5 py-1 text-base sm:text-sm text-[var(--color-heading)] transition-colors placeholder:text-[var(--color-muted)] hover:border-[var(--color-border-hover)] focus:border-[var(--color-primary)] focus:outline-none focus:ring-3 focus:ring-[var(--color-primary-soft)] aria-invalid:border-[var(--color-danger)]"
             >
                 <button type="button" data-password-toggle aria-controls="password_confirmation" aria-label="Show password" aria-pressed="false" class="absolute inset-y-0 right-0 flex w-10 cursor-pointer items-center justify-center rounded-md text-[var(--color-body)] hover:text-[var(--color-primary)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)]">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -85,7 +85,7 @@
             </div>
         </div>
 
-        <button type="submit" class="mt-1 flex w-full cursor-pointer items-center justify-center gap-3 rounded-md bg-[var(--color-btn-primary)] h-9 px-3 text-sm font-semibold text-[var(--color-btn-text)] transition-colors hover:bg-[var(--color-btn-primary-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]">
+        <button type="submit" class="mt-1 flex w-full cursor-pointer items-center justify-center gap-3 rounded-md bg-[var(--color-btn-primary)] h-11 px-3 text-sm font-semibold text-[var(--color-btn-text)] transition-colors hover:bg-[var(--color-btn-primary-hover)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]">
             Create account
         </button>
     </form>

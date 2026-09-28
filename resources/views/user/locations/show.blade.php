@@ -26,11 +26,11 @@
         ];
     @endphp
 
-    <section class="relative overflow-hidden min-h-[320px] bg-[var(--color-primary-dark)] text-white flex items-center justify-center">
+    <section class="relative overflow-hidden bg-[var(--color-primary-dark)] text-white flex items-center justify-center">
         <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
         <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
 
-        <div class="relative z-[5] mx-auto max-w-[1280px] mt-[60px] px-6 pt-[70px] pb-[90px] text-center">
+        <div class="relative z-[5] mx-auto max-w-[1280px] px-4 pt-8 pb-[90px] sm:px-6 lg:pt-14 text-center">
             <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-bold tracking-wide">
                 📍 {{ strtoupper($location->name) }} · {{ strtoupper($location->address) }}
             </span>
@@ -49,36 +49,36 @@
         </svg>
     </section>
 
-    <section class="mx-auto max-w-[1280px] pb-[90px]">
+    <section class="mx-auto max-w-[1280px] px-4 pb-10 sm:px-6 sm:pb-16">
 
-        <div class="relative z-[7] mx-auto -mt-[65px] mb-10 grid grid-cols-4 gap-4 max-[768px]:grid-cols-2 max-[768px]:gap-[10px]">
-            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5">
+        <div class="relative z-[7] mx-auto -mt-[65px] mb-6 sm:mb-10 grid grid-cols-4 gap-4 max-[768px]:grid-cols-2 max-[768px]:gap-[10px]">
+            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-3 sm:p-5">
                 <div class="inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-muted)]">
-                    <span class="h-2 w-2 rounded-full bg-[var(--color-success)]"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-success)]"></span>
                     Available
                 </div>
                 <strong class="text-2xl font-bold text-[var(--color-heading)]">{{ $available }}</strong>
             </div>
 
-            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-3 sm:p-5">
                 <div class="inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-muted)]">
-                    <span class="h-2 w-2 rounded-full bg-[var(--color-primary)]"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-primary)]"></span>
                     In Use
                 </div>
                 <strong class="text-2xl font-bold text-[var(--color-heading)]">{{ $inUse }}</strong>
             </div>
 
-            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-3 sm:p-5">
                 <div class="inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-muted)]">
-                    <span class="h-2 w-2 rounded-full bg-[var(--color-warning)]"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-[var(--color-warning)]"></span>
                     Maintenance
                 </div>
                 <strong class="text-2xl font-bold text-[var(--color-heading)]">{{ $maintenance }}</strong>
             </div>
 
-            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="flex flex-col gap-2 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-3 sm:p-5">
                 <div class="inline-flex items-center gap-2 text-xs font-semibold text-[var(--color-muted)]">
-                    <span class="h-2 w-2 rounded-full bg-slate-400"></span>
+                    <span class="h-2 w-2 shrink-0 rounded-full bg-slate-400"></span>
                     Total Lockers
                 </div>
                 <strong class="text-2xl font-bold text-[var(--color-heading)]">{{ $total }}</strong>
@@ -96,14 +96,14 @@
         </div>
 
         {{-- Lockers grid --}}
-        <div class="grid grid-cols-3 gap-4 pb-10 max-[1280px]:grid-cols-2 max-[600px]:grid-cols-1">
+        <div class="grid grid-cols-3 gap-4 max-[1280px]:grid-cols-2 max-[600px]:grid-cols-1">
             @forelse ($location->lockers as $locker)
                 <article class="flex flex-col overflow-hidden rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)]">
                     <div class="flex items-center justify-between border-b border-[var(--color-border)] bg-[#f8fafc] px-[18px] py-[14px]">
                         <span class="text-sm font-extrabold tracking-[0.02em] text-[var(--color-heading)]">Locker {{ $locker->name }}</span>
                     </div>
 
-                    <div class="flex flex-1 gap-4 p-[18px]">
+                    <div class="flex flex-1 flex-wrap gap-4 p-[18px]">
                         <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary-light)] text-[var(--color-primary)]">
                             <svg class="h-[30px] w-[30px] stroke-current stroke-[1.5]" viewBox="0 0 24 24" fill="none">
                                 <rect x="3" y="3" width="18" height="18" rx="2"></rect>
@@ -112,7 +112,7 @@
                             </svg>
                         </div>
 
-                        <div class="flex flex-1 flex-col justify-center gap-2">
+                        <div class="flex min-w-0 flex-1 flex-col justify-center gap-2">
                             <div class="flex items-center justify-between gap-[10px]">
                                 <span class="text-[11px] text-[var(--color-muted)]">Locker ID</span>
                                 <strong class="text-xs font-semibold text-[var(--color-heading)]">#{{ $locker->id }}</strong>

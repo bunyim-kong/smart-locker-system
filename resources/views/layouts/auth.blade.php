@@ -13,12 +13,12 @@
     <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-5 sm:px-8 lg:px-12">
         <main class="flex flex-1 items-center justify-center py-6 sm:py-10">
             <div class="w-full max-w-md overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-md shadow-[var(--color-primary-dark)]/10">
-                <section aria-labelledby="auth-title" class="flex flex-col justify-center gap-6 px-6 py-10">
+                <section aria-labelledby="auth-title" class="flex flex-col justify-center gap-6 px-4 py-8 sm:px-6 sm:py-10">
                     <div class="logo-login flex flex-col items-center justify-center gap-4">
                         <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">Welcome to</p>
 
                         <a href="{{ route('home') }}" aria-label="Smart Locker home" class="inline-flex items-center gap-3 no-underline sm:gap-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" class="size-16 shrink-0 sm:size-14" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" class="size-12 shrink-0 sm:size-14" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                                 <rect width="36" height="36" rx="9" fill="var(--color-primary-soft)" />
                                 <rect x="8" y="11" width="20" height="17" rx="3" fill="var(--color-heading)" />
                                 <path d="M18 11V28" stroke="#fff" stroke-width="1.4" />

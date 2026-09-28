@@ -3,9 +3,9 @@
 @section('title', 'My Profile - Smart Locker')
 
 @section('content')
-<section class="mx-auto w-full max-w-2xl px-6 pt-[130px] pb-20 max-md:px-5">
+<section class="mx-auto w-full max-w-2xl px-4 pb-10 pt-6 sm:px-6 sm:pb-16 lg:pt-14">
 
-    <div class="rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-8 shadow-[0_8px_25px_rgba(15,23,42,0.05)]">
+    <div class="rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-5 sm:p-8 shadow-[0_8px_25px_rgba(15,23,42,0.05)]">
 
         <div class="flex flex-col items-center text-center">
             <span class="flex h-20 w-20 items-center justify-center rounded-full bg-[var(--color-heading)] text-2xl font-semibold text-white">
@@ -26,7 +26,7 @@
         </div>
 
         <div class="mt-8 border-t border-[var(--color-border)] pt-6">
-            <dl class="grid grid-cols-2 gap-4 text-sm">
+            <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
                     <dt class="text-[var(--color-muted)]">Name</dt>
                     <dd class="mt-1 font-semibold text-[var(--color-heading)]">{{ auth()->user()->name }}</dd>

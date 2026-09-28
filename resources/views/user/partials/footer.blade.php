@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-</head>
-<body>
     <footer class="mt-auto bg-[var(--color-footer)] text-[var(--color-footer-text)]">
-        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 py-6 max-md:flex-col max-md:text-center max-md:px-[30px]">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-6 sm:px-6 max-lg:flex-col max-lg:text-center">
             <div class="flex items-center">
-                <a href="#" class="inline-flex items-center gap-2.5 no-underline">
+                <a href="{{ route('home') }}" class="inline-flex items-center gap-2.5 no-underline">
                     <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                         <rect width="36" height="36" rx="9" fill="var(--color-primary-soft)"/>
                         <rect x="8" y="11" width="20" height="17" rx="3" fill="var(--color-heading)"/>
@@ -31,11 +20,11 @@
                 </a>
             </div>
 
-            <nav class="flex flex-wrap justify-center gap-6 text-sm">
-                <a href="/how-to-use" class="text-[var(--color-footer-text)] no-underline transition-colors duration-200 hover:text-white">How to Use</a>
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm [&_a]:inline-flex [&_a]:min-h-11 [&_a]:items-center">
+                <a href="{{ route('how-to-use') }}" class="text-[var(--color-footer-text)] no-underline transition-colors duration-200 hover:text-white">How to Use</a>
                 <a href="/locations" class="text-[var(--color-footer-text)] no-underline transition-colors duration-200 hover:text-white">Locations</a>
                 <a href="/faq" class="text-[var(--color-footer-text)] no-underline transition-colors duration-200 hover:text-white">FAQ</a>
-                <a href="/about" class="text-[var(--color-footer-text)] no-underline transition-colors duration-200 hover:text-white">About</a>
+                <a href="{{ route('about') }}" class="text-[var(--color-footer-text)] no-underline transition-colors duration-200 hover:text-white">About</a>
             </nav>
 
             <p class="m-0 text-xs text-[var(--color-muted)]">
@@ -43,5 +32,3 @@
             </p>
         </div>
     </footer>
-</body>
-</html>

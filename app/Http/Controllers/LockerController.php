@@ -15,17 +15,17 @@ class LockerController extends Controller
 {
     public function index(Request $request): Response
     {
-        $activeUsage = $request->user()->history()->whereNull('end_time')->with('locker.location')->first();
+        $activeUsages = $request->user()->history()->whereNull('end_time')->with('locker.location')->latest('id')->get();
         $pastUsage = $request->user()->history()->whereNotNull('end_time')->with('locker.location')->latest('start_time')->paginate(10);
 
-        return response()->view('user.lockers.index', compact('activeUsage', 'pastUsage'))
+        return response()->view('user.lockers.index', compact('activeUsages', 'pastUsage'))
             ->header('Cache-Control', 'no-store, private');
     }
 
     public function show(Request $request, Locker $locker): Response
     {
         $locker->load('location');
-        $activeUsage = $request->user()->history()->whereNull('end_time')->first();
+        $activeUsage = $request->user()->history()->where('locker_id', $locker->id)->whereNull('end_time')->first();
         $occupied = $locker->history()->whereNull('end_time')->exists();
 
         return response()->view('user.lockers.show', compact('locker', 'activeUsage', 'occupied'))
@@ -37,13 +37,10 @@ class LockerController extends Controller
         DB::transaction(function () use ($request, $locker): void {
             User::whereKey($request->user()->id)->lockForUpdate()->firstOrFail();
             $lockedLocker = Locker::whereKey($locker->id)->lockForUpdate()->firstOrFail();
-            $activeUsage = $request->user()->history()->whereNull('end_time')->first();
+            $activeUsage = $request->user()->history()->where('locker_id', $lockedLocker->id)->whereNull('end_time')->first();
 
             if ($activeUsage) {
-                if ($activeUsage->locker_id === $lockedLocker->id) {
-                    return;
-                }
-                throw ValidationException::withMessages(['locker' => 'Finish using your current locker before choosing another.']);
+                return;
             }
 
             if ($lockedLocker->status !== 'Available' || $lockedLocker->history()->whereNull('end_time')->exists()) {

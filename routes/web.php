@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\HistoryController as AdminHistoryController;
 use App\Http\Controllers\Admin\LocationController as AdminLocationController;
 use App\Http\Controllers\Admin\LockerController as AdminLockerController;
+use App\Http\Controllers\Admin\MaintenanceController as AdminMaintenanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LockerController;
@@ -18,6 +19,9 @@ Route::get('/', function () {
 
     return view('user.home', compact('locations', 'lockers'));
 })->name('home');
+
+Route::view('/how-to-use', 'user.how-to-use')->name('how-to-use');
+Route::view('/about', 'user.about')->name('about');
 
 // guest only
 Route::middleware('guest')->group(function () {
@@ -62,6 +66,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('/lockers/{locker}', [AdminLockerController::class, 'update'])->name('lockers.update');
     Route::get('/lockers/{locker}/edit', [AdminLockerController::class, 'edit'])->name('lockers.edit');
     Route::delete('/lockers/{locker}', [AdminLockerController::class, 'destroy'])->name('lockers.destroy');
+
+    // admin maintenance
+    Route::get('/maintenances', [AdminMaintenanceController::class, 'index'])->name('maintenances.index');
+    Route::get('/maintenances/create', [AdminMaintenanceController::class, 'create'])->name('maintenances.create');
+    Route::post('/maintenances', [AdminMaintenanceController::class, 'store'])->name('maintenances.store');
+    Route::get('/maintenances/{maintenance}', [AdminMaintenanceController::class, 'show'])->name('maintenances.show');
+    Route::get('/maintenances/{maintenance}/edit', [AdminMaintenanceController::class, 'edit'])->name('maintenances.edit');
+    Route::put('/maintenances/{maintenance}', [AdminMaintenanceController::class, 'update'])->name('maintenances.update');
+    Route::delete('/maintenances/{maintenance}', [AdminMaintenanceController::class, 'destroy'])->name('maintenances.destroy');
 
     // usage and history
     Route::get('/usage', [AdminHistoryController::class, 'index'])->name('usage.index');

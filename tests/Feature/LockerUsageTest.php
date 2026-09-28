@@ -75,16 +75,96 @@ class LockerUsageTest extends TestCase
         $this->assertDatabaseCount('histories', 1);
     }
 
-    public function test_user_cannot_hold_two_lockers(): void
+    public function test_user_can_assign_three_lockers_and_view_each_code_and_location(): void
+    {
+        $lockers = [$this->locker(), $this->locker(), $this->locker()];
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        foreach ($lockers as $index => $locker) {
+            $locker->update(['name' => 'Locker-'.($index + 1)]);
+            $locker->location->update([
+                'name' => 'Location-'.($index + 1),
+                'map_link' => 'https://maps.google.com/?q=location'.($index + 1),
+            ]);
+            $this->get(route('user.lockers.show', $locker))->assertSee('Confirm use');
+            $this->post(route('user.lockers.start', $locker))->assertRedirectToRoute('user.lockers.index');
+        }
+
+        $this->assertDatabaseCount('histories', 3);
+        $response = $this->get(route('user.lockers.index'))->assertHeader('Cache-Control', 'no-store, private');
+        foreach ($lockers as $locker) {
+            $usage = History::where('locker_id', $locker->id)->sole();
+            $this->assertSame($user->id, $usage->user_id);
+            $this->assertNull($usage->end_time);
+            $this->assertSame('In Use', $locker->fresh()->status);
+            $response->assertSee($locker->name)->assertSee($locker->location->name)
+                ->assertSee($usage->access_code)->assertSee($locker->location->map_link)
+                ->assertSee(route('user.lockers.finish', $usage));
+            $this->get(route('user.lockers.show', $locker))->assertSee('This locker is assigned to you.')->assertDontSee('Confirm use');
+        }
+    }
+
+    public function test_reconfirming_an_older_locker_preserves_all_active_sessions(): void
     {
         $first = $this->locker();
         $second = $this->locker();
         $this->actingAs(User::factory()->create())->post(route('user.lockers.start', $first));
+        $usage = History::sole();
+        $code = $usage->access_code;
+        $this->post(route('user.lockers.start', $second));
 
-        $this->post(route('user.lockers.start', $second))->assertSessionHasErrors('locker');
+        $this->post(route('user.lockers.start', $first))->assertRedirectToRoute('user.lockers.index');
 
-        $this->assertSame('Available', $second->fresh()->status);
-        $this->assertDatabaseCount('histories', 1);
+        $this->assertDatabaseCount('histories', 2);
+        $this->assertSame($code, $usage->fresh()->access_code);
+        $this->assertSame(2, History::whereNull('end_time')->count());
+    }
+
+    public function test_finishing_one_locker_preserves_the_other_assignment(): void
+    {
+        $first = $this->locker();
+        $second = $this->locker();
+        $this->actingAs(User::factory()->create())->post(route('user.lockers.start', $first));
+        $firstUsage = History::sole();
+        $this->post(route('user.lockers.start', $second));
+        $secondUsage = History::where('locker_id', $second->id)->sole();
+        $secondCode = $secondUsage->access_code;
+
+        $this->post(route('user.lockers.finish', $firstUsage))->assertRedirectToRoute('user.lockers.index');
+
+        $this->assertSame('Available', $first->fresh()->status);
+        $this->assertNotNull($firstUsage->fresh()->end_time);
+        $this->assertNull($firstUsage->fresh()->access_code);
+        $this->assertSame('In Use', $second->fresh()->status);
+        $this->assertNull($secondUsage->fresh()->end_time);
+        $this->assertSame($secondCode, $secondUsage->fresh()->access_code);
+        $this->get(route('user.lockers.index'))
+            ->assertSee(route('user.lockers.finish', $secondUsage))
+            ->assertDontSee(route('user.lockers.finish', $firstUsage));
+    }
+
+    public static function unavailableMapLinks(): array
+    {
+        return [
+            'missing' => [''],
+            'invalid' => ['not a map URL'],
+            'unsafe scheme' => ['javascript:alert(1)'],
+            'non-web scheme' => ['ftp://example.com/map'],
+        ];
+    }
+
+    #[DataProvider('unavailableMapLinks')]
+    public function test_assigned_locker_keeps_address_without_an_unsafe_or_missing_map_link(string $mapLink): void
+    {
+        $locker = $this->locker();
+        $locker->location->update(['map_link' => $mapLink]);
+        $this->actingAs(User::factory()->create())->post(route('user.lockers.start', $locker));
+
+        $this->get(route('user.lockers.index'))
+            ->assertSee('Main street')
+            ->assertSee('Map directions are not available.')
+            ->assertDontSee('Open location in Maps');
     }
 
     public function test_finish_clears_code_and_stale_finish_does_not_release_new_session(): void

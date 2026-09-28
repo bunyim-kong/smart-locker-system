@@ -28,11 +28,11 @@
 @endphp
 
 @section('content')
-    <section class="relative overflow-hidden min-h-[320px] bg-[var(--color-primary-dark)] text-white flex items-center justify-center">
+    <section class="relative overflow-hidden bg-[var(--color-primary-dark)] text-white flex items-center justify-center">
         <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
         <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
 
-        <div class="relative z-[5] mx-auto max-w-3xl mt-[60px] px-6 pt-[70px] pb-[90px] text-center">
+        <div class="relative z-[5] mx-auto max-w-3xl px-4 pt-8 pb-[90px] sm:px-6 lg:pt-14 text-center">
             <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-bold tracking-wide">
                 📍 3 LOCATIONS · LIVE AVAILABILITY
             </span>
@@ -52,12 +52,12 @@
         </svg>
     </section>
 
-    <section class="bg-[var(--color-bg)] px-6 pb-[70px]">
+    <section class="bg-[var(--color-bg)] px-4 sm:px-6 pb-8 sm:pb-12 lg:pb-[70px]">
         <div class="relative z-10 mx-auto mt-[-65px] grid w-full max-w-7xl grid-cols-4 gap-4 max-md:grid-cols-2 max-[480px]:gap-2.5">
             @foreach ($stats as $stat)
-                <div class="rounded-[14px] border-2 border-[var(--color-border)] bg-[var(--color-card)] px-[22px] py-[26px] shadow-[0_8px_25px_rgba(15,23,42,0.05)] max-[480px]:p-[17px]">
+                <div class="rounded-[14px] border-2 border-[var(--color-border)] bg-[var(--color-card)] px-[22px] py-[26px] shadow-[0_8px_25px_rgba(15,23,42,0.05)] max-[480px]:p-3">
                     <div class="flex items-center gap-2 text-[13px] font-semibold text-[var(--color-body)]">
-                        <span class="h-2 w-2 rounded-full {{ $stat['dot'] }}"></span>
+                        <span class="h-2 w-2 shrink-0 rounded-full {{ $stat['dot'] }}"></span>
                         {{ $stat['label'] }}
                     </div>
                     <strong class="mt-2 block text-[30px] font-extrabold text-[var(--color-heading)] max-[480px]:text-[25px]">{{ $stat['value'] }}</strong>
@@ -66,7 +66,7 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-[1280px] pb-16">
+    <section class="mx-auto max-w-[1280px] px-4 pb-10 sm:px-6 sm:pb-16">
         <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
                 <span class="text-xs font-bold uppercase tracking-wide text-[var(--color-primary)]">LOCATIONS</span>
@@ -117,10 +117,10 @@
                     ][$badge];
                 @endphp
 
-                <article class="grid grid-cols-[1fr_180px] gap-[30px] rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] max-[900px]:grid-cols-1 max-[480px]:p-[18px]">
+                <article class="grid min-w-0 grid-cols-1 gap-5 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] max-[480px]:p-[18px]">
                     <div>
-                        <div class="flex items-start justify-between gap-5 max-[480px]:flex-col">
-                            <div class="flex items-center gap-[13px]">
+                        <div class="flex flex-wrap items-start justify-between gap-3">
+                            <div class="flex min-w-0 flex-1 items-center gap-[13px]">
                                 <div class="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-[11px] bg-[var(--color-primary-light)] text-[var(--color-primary)]">
                                     <svg class="h-[21px] w-[21px] stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
                                         <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
@@ -132,7 +132,7 @@
                                     <p class="m-0 text-xs text-[var(--color-muted)]">{{ $location->address }}</p>
                                 </div>
                             </div>
-                            <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] font-bold {{ $badgeClass }}">
+                            <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] font-bold {{ $badgeClass }}">
                                 <span class="h-1.5 w-1.5 rounded-full {{ $dotClass }}"></span>
                                 {{ $badgeLabel }}
                             </span>
@@ -166,7 +166,7 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-end justify-center border-l border-[var(--color-border)] pl-[25px] text-right max-[900px]:items-start max-[900px]:border-l-0 max-[900px]:border-t max-[900px]:pt-5 max-[900px]:pl-0 max-[900px]:text-left max-[480px]:w-full">
+                    <div class="flex flex-col items-start border-t border-[var(--color-border)] pt-5 text-left">
                         <span class="text-[11px] text-[var(--color-muted)]">Starting from</span>
                         <strong class="mt-[3px] text-[21px] text-[var(--color-heading)]">Free</strong>
                         <small class="text-[10px] text-[var(--color-muted)]">first 2 hours</small>
@@ -187,7 +187,7 @@
                     </div>
                 </article>
             @empty
-                <p class="col-span-2 text-sm text-[var(--color-muted)]">No locations found.</p>
+                <p class="col-span-full text-sm text-[var(--color-muted)]">No locations found.</p>
             @endforelse
         </div>
     </section>

@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-    <header class="fixed top-0 left-0 z-40 m-0 flex w-full flex-col items-center justify-center border-b-2 border-[var(--color-border)] bg-white/100 p-0">
-        <div class="m-0 flex w-full max-w-7xl items-center justify-between max-md:px-[30px] max-md:py-3">
-            <a href="#" class="inline-flex items-center gap-2.5 no-underline">
+    <header class="sticky top-0 z-40 m-0 flex w-full flex-col items-center justify-center border-b-2 border-[var(--color-border)] bg-white/100 p-0">
+        <div class="m-0 flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+            <a href="{{ route('home') }}" class="inline-flex items-center gap-2.5 no-underline">
                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                     <rect width="36" height="36" rx="9" fill="var(--color-primary-soft)"/>
                     <rect x="8" y="11" width="20" height="17" rx="3" fill="var(--color-heading)"/>
@@ -30,7 +18,7 @@
                 </div>
             </a>
 
-            <nav class="hidden md:flex my-3">
+            <nav class="hidden lg:flex">
                 <ul class="m-0 flex list-none gap-6 p-0 py-3">
                     <li class="m-0 p-0 list-none">
                         <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('home') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('home') }}">Home</a>
@@ -39,32 +27,32 @@
                         <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('user.locations.*') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('user.locations.index') }}">Location</a>
                     </li>
                     @auth
-                    <li><a href="{{ route('user.lockers.index') }}" class="text-base font-semibold text-[var(--color-primary)]">My Locker</a></li>
+                    <li><a href="{{ route('user.lockers.index') }}" class="text-base font-semibold text-[var(--color-primary)]">My Lockers</a></li>
                     @endauth
                     <li class="m-0 p-0 list-none">
-                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('how-to-use') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="">How to use</a>
+                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('how-to-use') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('how-to-use') }}">How to use</a>
                     </li>
                     <li class="m-0 p-0 list-none">
-                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('about') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="">About</a>
+                        <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('about') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('about') }}">About</a>
                     </li>
                 </ul>
             </nav>
 
             <div class="flex items-center justify-center gap-2.5">
                 @auth
-                <a href="{{ route('user.profile') }}" class="inline-flex items-center gap-2 no-underline hover:opacity-80">
+                <a href="{{ route('user.profile') }}" class="inline-flex min-h-11 min-w-0 items-center gap-2 no-underline hover:opacity-80">
                     <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-heading)] text-xs font-semibold text-white">
                         {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}{{ strtoupper(substr(explode(' ', auth()->user()->name)[1] ?? '', 0, 1)) }}
                     </span>
-                    <span class="hidden flex-col leading-tight md:flex">
-                        <span class="text-sm font-semibold text-[var(--color-heading)]">{{ auth()->user()->name }}</span>
+                    <span class="hidden min-w-0 max-w-40 flex-col leading-tight xl:flex">
+                        <span class="truncate text-sm font-semibold text-[var(--color-heading)]">{{ auth()->user()->name }}</span>
                         <span class="text-[11px] text-[var(--color-muted)]">{{ auth()->user()->isAdmin() ? 'Admin' : 'User' }}</span>
                     </span>
                 </a>
                 @endauth
 
                 @guest
-                <div class="flex items-center justify-center gap-5">
+                <div class="hidden items-center justify-center gap-5 sm:flex">
                     <a href="{{ route('login') }}" class="text-sm font-semibold text-[var(--color-primary)] no-underline hover:opacity-80">
                     Log in
                 </a>
@@ -74,7 +62,7 @@
                 </div>
                 @endguest
 
-                <button id="mobile-menu-toggle" class="cursor-pointer border-0 bg-transparent text-[var(--color-heading)] md:hidden" aria-label="Open menu" aria-controls="mobile-navlink" aria-expanded="false">
+                <button id="mobile-menu-toggle" class="flex size-11 shrink-0 items-center justify-center cursor-pointer border-0 bg-transparent text-[var(--color-heading)] lg:hidden" aria-label="Open menu" aria-controls="mobile-navlink" aria-expanded="false">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-[30px] w-[30px]">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
@@ -82,10 +70,10 @@
             </div>
         </div>
 
-        <div id="mobile-navlink" class="hidden w-full md:hidden">
-            <ul class="m-0 flex list-none flex-col gap-2 px-3.5 py-1.5">
+        <div id="mobile-navlink" class="hidden max-h-[calc(100dvh-80px)] w-full overflow-y-auto lg:hidden">
+            <ul class="m-0 flex list-none flex-col gap-1 px-4 py-3 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
                 @auth
-                <li><a href="{{ route('user.lockers.index') }}" class="font-semibold text-[var(--color-primary)]">My Locker</a></li>
+                <li><a href="{{ route('user.lockers.index') }}" class="font-semibold text-[var(--color-primary)]">My Lockers</a></li>
                 @endauth
                 <li class="list-none">
                     <a href="{{ route('home') }}" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Home</a>
@@ -94,11 +82,15 @@
                     <a href="{{ route('user.locations.index') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Location</a>
                 </li>
                 <li class="list-none">
-                    <a href="" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">How to use</a>
+                    <a href="{{ route('how-to-use') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">How to use</a>
                 </li>
                 <li class="list-none">
-                    <a href="" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">About</a>
+                    <a href="{{ route('about') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">About</a>
                 </li>
+                @guest
+                <li class="sm:hidden"><a href="{{ route('login') }}" class="font-semibold text-[var(--color-primary)]">Log in</a></li>
+                <li class="sm:hidden"><a href="{{ route('register') }}" class="font-semibold text-[var(--color-primary)]">Register</a></li>
+                @endguest
             </ul>
         </div>
     </header>
@@ -109,7 +101,17 @@
             menu.classList.toggle('hidden');
             const expanded = this.getAttribute('aria-expanded') === 'true';
             this.setAttribute('aria-expanded', String(!expanded));
+            this.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                document.getElementById('mobile-navlink').classList.add('hidden');
+                const toggle = document.getElementById('mobile-menu-toggle');
+                if (toggle.getAttribute('aria-expanded') === 'true') {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.setAttribute('aria-label', 'Open menu');
+                    toggle.focus();
+                }
+            }
         });
     </script>
-</body>
-</html>
