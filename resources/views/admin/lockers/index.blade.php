@@ -1,10 +1,12 @@
-{{-- resources/views/admin/lockers/index.blade.php --}}
 @extends('layouts.admin')
 
 @section('title', 'Lockers')
 
 @section('content')
-<div class="p-6">
+<section>
+    @if ($errors->any())
+        <p role="alert" class="mb-4 rounded-lg border border-[var(--color-danger)] p-4 text-sm">{{ $errors->first() }}</p>
+    @endif
 
     @if (session('success'))
         <div class="mb-4 px-4 py-2 bg-green-50 text-green-700 text-sm rounded-lg">
@@ -95,5 +97,5 @@
             </tbody>
         </table>
     </div>
-</div>
+</section>
 @endsection

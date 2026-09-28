@@ -38,6 +38,9 @@
                     <li class="m-0 p-0 list-none">
                         <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('user.locations.*') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('user.locations.index') }}">Location</a>
                     </li>
+                    @auth
+                    <li><a href="{{ route('user.lockers.index') }}" class="text-base font-semibold text-[var(--color-primary)]">My Locker</a></li>
+                    @endauth
                     <li class="m-0 p-0 list-none">
                         <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('how-to-use') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="">How to use</a>
                     </li>
@@ -81,6 +84,9 @@
 
         <div id="mobile-navlink" class="hidden w-full md:hidden">
             <ul class="m-0 flex list-none flex-col gap-2 px-3.5 py-1.5">
+                @auth
+                <li><a href="{{ route('user.lockers.index') }}" class="font-semibold text-[var(--color-primary)]">My Locker</a></li>
+                @endauth
                 <li class="list-none">
                     <a href="{{ route('home') }}" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Home</a>
                 </li>

@@ -5,6 +5,8 @@
 
 @section('content')
 
+
+
 <div class="w-full p-6 border border-gray-200 rounded-xl bg-white">
     <form action="{{ route('admin.locations.store') }}" method="POST">
         @csrf

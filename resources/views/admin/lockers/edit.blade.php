@@ -1,13 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Locker')
+@section('title', 'Locker')
 
 @section('content')
-<div class="p-6 w-full">
+<section class="w-full">
     <div class="flex items-center gap-2 mb-6">
-        <a href="{{ route('admin.lockers.index') }}" class="text-gray-400 hover:text-gray-600">
-            <span aria-hidden="true">&larr;</span><span class="sr-only">Back to lockers</span>
-        </a>
         <h1 class="text-2xl font-bold text-gray-900">Edit Locker {{ $locker->name }}</h1>
     </div>
 
@@ -60,5 +57,5 @@
             </button>
         </div>
     </form>
-</div>
+</section>
 @endsection

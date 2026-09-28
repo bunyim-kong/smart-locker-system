@@ -101,7 +101,6 @@
                 <article class="flex flex-col overflow-hidden rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)]">
                     <div class="flex items-center justify-between border-b border-[var(--color-border)] bg-[#f8fafc] px-[18px] py-[14px]">
                         <span class="text-sm font-extrabold tracking-[0.02em] text-[var(--color-heading)]">Locker {{ $locker->name }}</span>
-                        <span class="inline-flex items-center rounded-md bg-[var(--color-primary-light)] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-[var(--color-primary)]">{{ ucfirst($locker->size) }}</span>
                     </div>
 
                     <div class="flex flex-1 gap-4 p-[18px]">
@@ -131,9 +130,9 @@
                             {{ $statusLabel[$locker->status] }}
                         </span>
 
-                        @if ($locker->status === 'available')
-                            <a href="{{ route('lockers.show', $locker) }}" class="rounded-lg bg-[var(--color-primary)] px-4 py-2 text-xs font-semibold text-white transition-colors duration-200 ease-out hover:bg-[var(--color-primary-hover)]">
-                                Reserve
+                        @if ($locker->status === 'Available')
+                            <a href="{{ route('user.lockers.show', $locker) }}" class="rounded-lg bg-[var(--color-primary)] px-4 py-2 text-xs font-semibold text-white transition-colors duration-200 ease-out hover:bg-[var(--color-primary-hover)]">
+                                View locker
                             </a>
                         @else
                             <button class="cursor-not-allowed rounded-lg bg-[#e2e8f0] px-4 py-2 text-xs font-semibold text-[#94a3b8]" disabled>

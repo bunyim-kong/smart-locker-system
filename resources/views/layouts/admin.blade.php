@@ -13,7 +13,7 @@
     <section class="flex">
         @include('admin.partial.sidebar')
 
-        <div class="min-w-0 flex-1 flex flex-col min-h-screen sm:ml-64">
+        <div class="min-w-0 flex-1 flex flex-col min-h-screen pt-20 sm:ml-64">
             @include('admin.partial.header')
 
             <main class="min-w-0 flex-1 px-4 py-6 sm:px-6">

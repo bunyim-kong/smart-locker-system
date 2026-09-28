@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between gap-4 border-b border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 sm:px-6">
+<header class="fixed inset-x-0 top-0 z-30 flex h-20 items-center justify-between gap-4 border-b border-[var(--color-border)] bg-[var(--color-card)] px-4 sm:left-64 sm:px-6">
     <div class="flex min-w-0 items-center gap-3">
         <button id="sidebar-toggle" type="button" aria-controls="admin-sidebar" aria-expanded="false" aria-label="Open navigation" class="shrink-0 rounded-lg p-2 text-[var(--color-heading)] hover:bg-[var(--color-primary-soft)] focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] sm:hidden">
             <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
