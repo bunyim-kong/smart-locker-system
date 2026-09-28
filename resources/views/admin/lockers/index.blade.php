@@ -1,134 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
+{{-- resources/views/admin/lockers/index.blade.php --}}
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('title', 'Lockers')
 
-    <title>Locker Management</title>
-</head>
+@section('content')
+<div class="p-6">
 
-<body>
-
-<div style="max-width: 1000px; margin: 40px auto;">
-
-    <h1>Locker Management</h1>
-
-    {{-- Success message --}}
-    @if(session('success'))
-
-        <p style="color: green;">
+    @if (session('success'))
+        <div class="mb-4 px-4 py-2 bg-green-50 text-green-700 text-sm rounded-lg">
             {{ session('success') }}
-        </p>
-
+        </div>
     @endif
 
-    {{-- Add Locker --}}
-    <a href="{{ route('lockers.create') }}">
-        + Add Locker
-    </a>
+    <form action="{{ route('admin.lockers.index') }}" method="GET" class="flex flex-wrap items-center gap-3 mb-4">
+        <div class="relative flex-1">
+            <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 10a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="search" name="search" value="{{ request('search') }}" aria-label="Search lockers" placeholder="Search by locker name or location..."
+                   class="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
 
-    <br><br>
+        <select name="status" aria-label="Filter by status" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+            <option value="">All statuses</option>
+            @foreach (['Available', 'In Use', 'Maintenance'] as $status)
+                <option value="{{ $status }}" @selected(request('status') === $status)>{{ $status }}</option>
+            @endforeach
+        </select>
+        <button type="submit" class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-50">Filter</button>
 
-    <table
-        border="1"
-        cellpadding="10"
-        cellspacing="0"
-        width="100%"
-    >
+        <a href="{{ route('admin.lockers.create') }}"
+           class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add locker
+        </a>
+    </form>
 
-        <thead>
-
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Location</th>
-                <th>Actions</th>
-            </tr>
-
-        </thead>
-
-        <tbody>
-
-        @forelse($lockers as $locker)
-
-            <tr>
-
-                <td>
-                    {{ $locker->id }}
-                </td>
-
-                <td>
-                    {{ $locker->name }}
-                </td>
-
-                <td>
-                    {{ $locker->status }}
-                </td>
-
-                <td>
-                    {{ $locker->location->name ?? 'No Location' }}
-                </td>
-
-                <td>
-
-                    {{-- View --}}
-                    <a href="{{ route('lockers.show', $locker->id) }}">
-                        View
-                    </a>
-
-                    |
-
-                    {{-- Edit --}}
-                    <a href="{{ route('lockers.edit', $locker->id) }}">
-                        Edit
-                    </a>
-
-                    |
-
-                    {{-- Delete --}}
-                    <form
-                        action="{{ route('lockers.destroy', $locker->id) }}"
-                        method="POST"
-                        style="display: inline;"
-                    >
-
-                        @csrf
-
-                        @method('DELETE')
-
-                        <button
-                            type="submit"
-                            onclick="return confirm('Are you sure you want to delete this locker?')"
-                        >
-                            Delete
-                        </button>
-
-                    </form>
-
-                </td>
-
-            </tr>
-
-        @empty
-
-            <tr>
-
-                <td colspan="5">
-                    No lockers found.
-                </td>
-
-            </tr>
-
-        @endforelse
-
-        </tbody>
-
-    </table>
-
+    <div class="bg-white border border-gray-100 rounded-xl overflow-x-auto">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wide">
+                    <th class="text-left font-medium px-6 py-3">Locker</th>
+                    <th class="text-left font-medium px-6 py-3">Location</th>
+                    <th class="text-left font-medium px-6 py-3">Status</th>
+                    <th class="text-left font-medium px-6 py-3">Detail</th>
+                    <th class="text-right font-medium px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($lockers as $locker)
+                    <tr class="border-b border-gray-50 last:border-0 hover:bg-gray-50">
+                        <td class="px-6 py-4 font-semibold text-gray-900">{{ $locker->name }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ $locker->location->name ?? '—' }}</td>
+                        <td class="px-6 py-4">
+                            @php
+                                $statusStyles = [
+                                    'In Use' => 'text-orange-500',
+                                    'Available' => 'text-green-600',
+                                    'Maintenance' => 'text-red-500',
+                                ];
+                            @endphp
+                            <span class="font-medium {{ $statusStyles[$locker->status] ?? 'text-gray-500' }}">
+                                {{ $locker->status }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-gray-500">
+                            Updated {{ $locker->updated_at->diffForHumans() }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-end gap-3">
+                                <a href="{{ route('admin.lockers.edit', $locker) }}" aria-label="Edit locker" class="text-blue-500 hover:text-blue-600">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </a>
+                                <form action="{{ route('admin.lockers.destroy', $locker) }}" method="POST" onsubmit="return confirm('Delete this locker?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" aria-label="Delete locker" class="text-red-500 hover:text-red-600">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="px-6 py-6 text-center text-gray-400">No lockers yet.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
-
-</body>
-
-</html>
+@endsection

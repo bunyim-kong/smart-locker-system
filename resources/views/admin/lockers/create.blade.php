@@ -1,153 +1,64 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.admin')
 
-<head>
-    <meta charset="UTF-8">
+@section('title', 'Add Locker')
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+@section('content')
+<div class="p-6 w-full">
+    <div class="flex items-center gap-2 mb-6">
+        <a href="{{ route('admin.lockers.index') }}" class="text-gray-400 hover:text-gray-600">
+            <span aria-hidden="true">&larr;</span><span class="sr-only">Back to lockers</span>
+        </a>
+        <h1 class="text-2xl font-bold text-gray-900">Add Locker</h1>
+    </div>
 
-    <title>Add Locker</title>
-</head>
-
-<body>
-
-<div style="max-width: 600px; margin: 40px auto;">
-
-    <h1>Add New Locker</h1>
-
-
-    {{-- Validation errors --}}
-
-    @if ($errors->any())
-
-        <div style="color: red;">
-
-            <ul>
-
-                @foreach ($errors->all() as $error)
-
-                    <li>
-                        {{ $error }}
-                    </li>
-
-                @endforeach
-
-            </ul>
-
-        </div>
-
-    @endif
-
-
-    <form
-        action="{{ route('lockers.store') }}"
-        method="POST"
-    >
-
+    <form action="{{ route('admin.lockers.store') }}" method="POST"
+          class="bg-white border border-gray-100 rounded-xl p-8 w-full">
         @csrf
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Locker Name</label>
+                <input type="text" name="name" id="name" required value="{{ old('name') }}" placeholder="e.g. L-016"
+                       class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('name') border-red-400 @enderror">
+                @error('name') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+            </div>
 
-        {{-- Locker Name --}}
+            <div>
+                <label for="location_id" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <select name="location_id" id="location_id" required
+                        class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('location_id') border-red-400 @enderror">
+                    <option value="">Select location</option>
+                    @foreach ($locations as $location)
+                        <option value="{{ $location->id }}" @selected(old('location_id') == $location->id)>
+                            {{ $location->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('location_id') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+            </div>
 
-        <div style="margin-bottom: 15px;">
-
-            <label for="name">
-                Locker Name
-            </label>
-
-            <br>
-
-            <input
-                type="text"
-                id="name"
-                name="name"
-                value="{{ old('name') }}"
-                required
-            >
-
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select name="status" id="status" required
+                        class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status') border-red-400 @enderror">
+                    @foreach (['Available', 'In Use', 'Maintenance'] as $status)
+                        <option value="{{ $status }}" @selected(old('status') == $status)>{{ $status }}</option>
+                    @endforeach
+                </select>
+                @error('status') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
+            </div>
         </div>
 
-
-        {{-- Status --}}
-
-        <div style="margin-bottom: 15px;">
-
-            <label for="status">
-                Status
-            </label>
-
-            <br>
-
-            <select
-                name="status"
-                id="status"
-                required
-            >
-
-                <option value="">
-                     Select Status 
-                </option>
-
-                <option value="Available">
-                    Available
-                </option>
-
-                <option value="In Use">
-                    In-Used
-                </option>
-
-                <option value="Maintenance">
-                    Maintenance
-                </option>
-
-            </select>
-
+        <div class="flex justify-end gap-3 pt-8">
+            <a href="{{ route('admin.lockers.index') }}"
+               class="px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                Cancel
+            </a>
+            <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
+                Add locker
+            </button>
         </div>
-
-
-        {{-- Location --}}
-
-        <div style="margin-bottom: 15px;">
-
-            <label for="location_id">
-                Location
-            </label>
-            <br>
-            <select name="location_id" id="location_id">
-                <option value="">-- Select a location --</option>
-                @foreach ($locations as $location)
-                    <option value="{{ $location->id }}"
-                        {{ old('location_id', $locker->location_id ?? '') == $location->id ? 'selected' : '' }}>
-                        {{ $location->name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('location_id')
-                <span style="color: red;">{{ $message }}</span>
-            @enderror
-
-        </div>
-
-
-        {{-- Buttons --}}
-
-        <button type="submit">
-            Save Locker
-        </button>
-
-        <a href="{{ route('lockers.index') }}">
-            Cancel
-        </a>
-
     </form>
-
 </div>
-
-</body>
-
-</html>
-
+@endsection

@@ -9,7 +9,6 @@
     $locationCount    = $locations->count();
     $lockerCount      = $lockers->count();
     $popularLocations = $locations->take(3);
-    $featured         = $locations->first();
     $sort             = request('sort', 'nearest');
 
     $sortedLocations = match ($sort) {
@@ -240,59 +239,13 @@
         </div>
     </section>
 
-    <section class="bg-[var(--color-primary-dark)] py-[90px] max-[480px]:px-5 max-[480px]:py-[70px]">
-        <div class="mx-auto grid w-full max-w-7xl grid-cols-[0.95fr_1.05fr] items-center gap-[60px] max-[900px]:grid-cols-1 max-[900px]:gap-10 max-md:px-[30px]">
-            <div>
-                <span class="mb-2 block text-[11px] font-extrabold tracking-[0.12em] text-blue-400">📍 LIVE MAP</span>
-                <h2 class="m-0 text-[30px] font-extrabold leading-[1.2] tracking-[-0.025em] text-white">See every locker on the map</h2>
-                <p class="mb-[25px] mt-4 max-w-[470px] text-sm leading-[1.7] text-slate-300 max-[900px]:max-w-[650px]">
-                    Zoom in on any location to see individual lockers,
-                    their size, and current status — all in real time.
-                </p>
-                <ul class="m-0 list-none p-0">
-                    <li class="mb-[13px] flex items-center gap-2.5 text-[13px] text-blue-100">
-                        <span class="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-blue-400/15 text-[11px] font-bold text-blue-400">✓</span>
-                        Pinpoint exact locker position
-                    </li>
-                    <li class="mb-[13px] flex items-center gap-2.5 text-[13px] text-blue-100">
-                        <span class="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-blue-400/15 text-[11px] font-bold text-blue-400">✓</span>
-                        Filter by size (small, medium, large)
-                    </li>
-                    <li class="mb-[13px] flex items-center gap-2.5 text-[13px] text-blue-100">
-                        <span class="flex h-[22px] w-[22px] items-center justify-center rounded-full bg-blue-400/15 text-[11px] font-bold text-blue-400">✓</span>
-                        Reserve from the map instantly
-                    </li>
-                </ul>
-            </div>
-
-            <div class="relative h-[390px] overflow-hidden rounded-[20px] border border-white/12 bg-gray-200 max-md:h-[320px]">
-                <div class="absolute inset-0 opacity-35 [background-image:linear-gradient(#94a3b8_1px,transparent_1px),linear-gradient(90deg,#94a3b8_1px,transparent_1px)] [background-size:42px_42px]"></div>
-                <div class="absolute top-[48%] -left-[10%] h-[45px] w-[120%] rotate-[-8deg] bg-white shadow-[0_0_0_1px_#d1d5db]"></div>
-                <div class="absolute -top-1/5 left-[58%] h-[140%] w-[38px] rotate-[15deg] bg-white shadow-[0_0_0_1px_#d1d5db]"></div>
-                <div class="absolute top-1/4 left-1/4 h-[18px] w-[18px] rotate-[-45deg] rounded-[50%_50%_50%_0] border-4 border-white bg-[var(--color-primary)] shadow-[0_4px_10px_rgba(15,23,42,0.2)]"></div>
-                <div class="absolute top-[62%] left-[70%] h-[18px] w-[18px] rotate-[-45deg] rounded-[50%_50%_50%_0] border-4 border-white bg-[var(--color-success)] shadow-[0_4px_10px_rgba(15,23,42,0.2)]"></div>
-                <div class="absolute top-[30%] left-[73%] h-[18px] w-[18px] rotate-[-45deg] rounded-[50%_50%_50%_0] border-4 border-white bg-[var(--color-warning)] shadow-[0_4px_10px_rgba(15,23,42,0.2)]"></div>
-
-                @if ($featured)
-                    @php
-                        $featuredTotal     = $featured->lockers->count();
-                        $featuredAvailable = $featured->lockers->where('status', 'Available')->count();
-                    @endphp
-                    <div class="absolute top-[43%] left-[30%] flex min-w-[250px] items-center gap-2.5 rounded-[11px] bg-white p-[13px] shadow-[0_12px_30px_rgba(15,23,42,0.18)] max-[480px]:left-[10%] max-[480px]:min-w-[80%]">
-                        <div class="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[9px] bg-[var(--color-primary-light)] text-[var(--color-primary)]">
-                            <svg class="h-[18px] w-[18px] stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
-                                <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
-                                <circle cx="12" cy="10" r="2.5"></circle>
-                            </svg>
-                        </div>
-                        <div class="flex flex-1 flex-col">
-                            <strong class="text-xs text-[var(--color-heading)]">{{ $featured->name }}</strong>
-                            <span class="mt-0.5 text-[9px] text-[var(--color-muted)]">{{ $featuredAvailable }} of {{ $featuredTotal }} lockers available</span>
-                        </div>
-                        <a href="{{ route('user.locations.show', $featured) }}" class="text-[10px] font-bold text-[var(--color-primary)] no-underline">Open →</a>
-                    </div>
-                @endif
-            </div>
+    <section aria-labelledby="locker-banner-title" class="relative overflow-hidden bg-[var(--color-primary-dark)] px-6 py-16 sm:py-20">
+        <div aria-hidden="true" class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border border-[var(--color-primary)]/30"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full border border-[var(--color-primary)]/30"></div>
+        <div class="relative mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+            <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-footer-text)]">Smart Locker</span>
+            <h2 id="locker-banner-title" class="m-0 text-3xl font-extrabold leading-tight tracking-tight text-[var(--color-btn-text)] sm:text-4xl">Find your next locker.</h2>
+            <p class="m-0 max-w-xl text-sm leading-7 text-[var(--color-footer-text)] sm:text-base">Browse our locations and check locker availability before you visit.</p>
         </div>
     </section>
 
@@ -307,7 +260,7 @@
             <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
                 <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">1</div>
                 <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Find a Locker</h3>
-                <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Search by location or use the map to spot the closest available locker.</p>
+                <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Browse locations and check which lockers are available before you visit.</p>
             </article>
             <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
                 <div class="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">2</div>

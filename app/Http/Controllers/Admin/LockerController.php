@@ -3,13 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Locker;
 use App\Models\Location;
+use App\Models\Locker;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LockerController extends Controller
 {
-    //
+    public function index(Request $request): View
+    {
+        $query = Locker::with('location');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")->orWhereHas('location', fn ($query) => $query->where('name', 'like', "%{$search}%"));
+            });
+        }
+
+        if (in_array($request->input('status'), ['Available', 'In Use', 'Maintenance'], true)) {
+            $query->where('status', $request->input('status'));
+        }
+
+        $lockers = $query->get();
+
+        return view('admin.lockers.index', compact('lockers'));
+    }
+
     public function create()
     {
         $locations = Location::all();

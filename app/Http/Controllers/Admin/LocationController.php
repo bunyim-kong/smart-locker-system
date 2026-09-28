@@ -3,17 +3,36 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Location;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LocationController extends Controller
 {
-    //
+    public function index(Request $request): View
+    {
+        $query = Location::with('lockers');
+
+        if ($search = $request->string('search')->trim()->toString()) {
+            $query->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%{$search}%")->orWhere('address', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->boolean('free')) {
+            $query->whereHas('lockers', fn ($query) => $query->where('status', 'Available'));
+        }
+
+        $locations = $query->get();
+
+        return view('admin.locations.index', compact('locations'));
+    }
+
     public function create()
     {
         return view('admin.locations.create');
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -23,6 +42,7 @@ class LocationController extends Controller
         ]);
 
         Location::create($request->all());
+
         return redirect()->route('admin.locations.index')->with('success', 'Location created successfully.');
     }
 
@@ -40,12 +60,14 @@ class LocationController extends Controller
         ]);
 
         $location->update($request->all());
+
         return redirect()->route('admin.locations.index')->with('success', 'Location updated successfully.');
     }
-    
+
     public function destroy(Location $location)
     {
         $location->delete();
-        return redirect()->route('admin.locations.index')->with('success', 'Location deleted successfully.'); 
+
+        return redirect()->route('admin.locations.index')->with('success', 'Location deleted successfully.');
     }
 }
