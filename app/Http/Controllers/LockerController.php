@@ -27,14 +27,12 @@ class LockerController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'size' => 'required|in:Small,Medium,Large',
             'status' => 'required|string|max:50',
             'location_id' => 'required|exists:locations,id',
         ]);
 
         Locker::create([
             'name' => $request->name,
-            'size' => $request->size,
             'status' => $request->status,
             'location_id' => $request->location_id,
         ]);
@@ -54,14 +52,12 @@ class LockerController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'size' => 'required|in:Small,Medium,Large',
             'status' => 'required|string|max:50',
             'location_id' => 'required|exists:locations,id',
         ]);
 
         $locker->update([
             'name' => $request->name,
-            'size' => $request->size,
             'status' => $request->status,
             'location_id' => $request->location_id,
         ]);

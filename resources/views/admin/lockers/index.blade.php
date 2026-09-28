@@ -41,7 +41,6 @@
                 <tr class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wide">
                     <th class="text-left font-medium px-6 py-3">Locker</th>
                     <th class="text-left font-medium px-6 py-3">Location</th>
-                    <th class="text-left font-medium px-6 py-3">Size</th>
                     <th class="text-left font-medium px-6 py-3">Status</th>
                     <th class="text-left font-medium px-6 py-3">Detail</th>
                     <th class="text-right font-medium px-6 py-3">Actions</th>
@@ -52,7 +51,6 @@
                     <tr class="border-b border-gray-50 last:border-0 hover:bg-gray-50">
                         <td class="px-6 py-4 font-semibold text-gray-900">{{ $locker->name }}</td>
                         <td class="px-6 py-4 text-gray-500">{{ $locker->location->name ?? '—' }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ $locker->size }}</td>
                         <td class="px-6 py-4">
                             @php
                                 $statusStyles = [
