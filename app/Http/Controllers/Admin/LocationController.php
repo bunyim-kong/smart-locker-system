@@ -66,6 +66,10 @@ class LocationController extends Controller
 
     public function destroy(Location $location)
     {
+        if ($location->lockers()->exists()) {
+            return redirect()->route('admin.locations.index')->with('Error', 'Location cannot be delete');
+        }
+
         $location->delete();
 
         return redirect()->route('admin.locations.index')->with('success', 'Location deleted successfully.');

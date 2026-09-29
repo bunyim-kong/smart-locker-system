@@ -18,7 +18,7 @@ class History extends Model
 
     public function locker(): BelongsTo
     {
-        return $this->belongsTo(Locker::class);
+        return $this->belongsTo(Locker::class)->withTrashed();
     }
 
     public function user(): BelongsTo

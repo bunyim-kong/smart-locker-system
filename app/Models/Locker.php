@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Locker extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'name',
         'status',
@@ -17,8 +20,9 @@ class Locker extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function history() {
-        return $this -> hasMany(History::class);
+    public function history()
+    {
+        return $this->hasMany(History::class);
     }
 
     public function maintenance()

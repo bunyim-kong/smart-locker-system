@@ -74,7 +74,6 @@ class MaintenanceController extends Controller
         return redirect()->route('admin.maintenances.index')->with('success', 'Maintenance deleted successfully.');
     }
 
-    /** @return array<string, array<int, mixed>> */
     private function rules(): array
     {
         return [

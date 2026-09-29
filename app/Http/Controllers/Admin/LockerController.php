@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Locker;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -91,16 +92,15 @@ class LockerController extends Controller
     }
 
     // Delete locker
-    public function destroy(Locker $locker)
+    public function destroy(Locker $locker): RedirectResponse
     {
         DB::transaction(function () use ($locker): void {
-            $lockedLocker = Locker::whereKey($locker->id)->lockForUpdate()->firstOrFail();
-            if ($lockedLocker->history()->exists()) {
-                throw ValidationException::withMessages(['locker' => 'This locker has usage history and cannot be deleted.']);
+            $lockedLocker = Locker::whereKey($locker->getKey())->lockForUpdate()->firstOrFail();
+
+            if ($lockedLocker->history()->whereNull('end_time')->exists()) {
+                throw ValidationException::withMessages(['locker' => 'Finish the active locker session before deleting this locker.']);
             }
-            if ($lockedLocker->maintenance()->exists()) {
-                throw ValidationException::withMessages(['locker' => 'This locker has maintenance records and cannot be deleted.']);
-            }
+
             $lockedLocker->delete();
         });
 

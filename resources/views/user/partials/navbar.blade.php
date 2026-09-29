@@ -70,16 +70,16 @@
         <div id="mobile-navlink" class="hidden max-h-[calc(100dvh-80px)] w-full overflow-y-auto lg:hidden">
             <ul class="m-0 flex list-none flex-col gap-1 px-[18px] py-3 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
                 <li class="list-none">
-                    <a href="{{ route('home') }}" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Home</a>
+                    <a href="{{ route('home') }}" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] ">Home</a>
                 </li>
                 <li class="list-none">
-                    <a href="{{ route('user.locations.index') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Location</a>
+                    <a href="{{ route('user.locations.index') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('user.locations.*') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }}">Location</a>
                 </li>
                 <li class="list-none">
-                    <a href="{{ route('how-to-use') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">How to use</a>
+                    <a href="{{ route('how-to-use') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('how-to-use') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }}">How to use</a>
                 </li>
                 <li class="list-none">
-                    <a href="{{ route('about') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">About</a>
+                    <a href="{{ route('about') }}" class="no-underline text-[var(--color-body)] transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('about') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }}">About</a>
                 </li>
                 @guest
                 <li class="sm:hidden"><a href="{{ route('login') }}" class="font-semibold text-[var(--color-primary)]">Log in</a></li>
