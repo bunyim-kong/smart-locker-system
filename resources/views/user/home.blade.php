@@ -38,7 +38,7 @@
             <path class="stroke-current" d="M20 20a70 70 0 0 1 70 70"></path>
         </svg>
 
-        <div class="relative z-[5] mx-auto w-full max-w-7xl px-4 pb-24 pt-10 text-center sm:px-6 sm:pb-28 lg:pt-20">
+        <div class="relative z-[5] mx-auto w-full max-w-7xl px-[18px] pb-24 pt-10 text-center sm:px-6 sm:pb-28 lg:pt-20">
 
             <h1 class="mb-[18px] text-[clamp(42px,7vw,72px)] font-extrabold leading-[1.05] tracking-[-0.04em] text-white max-md:text-[44px] max-[480px]:text-[38px]">
                 Find a locker.<br>
@@ -88,7 +88,7 @@
     </section>
 
     <!-- stat card -->
-    <section class="bg-[var(--color-bg)] px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
+    <section class="bg-[var(--color-bg)] px-[18px] sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
         <div class="relative z-10 mx-auto mt-[-65px] grid w-full max-w-7xl grid-cols-4 gap-4 max-md:grid-cols-2 max-[480px]:gap-2.5">
             @foreach ($stats as $stat)
                 <div class="rounded-[14px] border-2 border-[var(--color-border)] bg-[var(--color-card)] px-[22px] py-[26px] shadow-[0_8px_25px_rgba(15,23,42,0.05)] max-[480px]:p-3">
@@ -103,7 +103,7 @@
     </section>
 
 
-    <section class="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
+    <section class="mx-auto w-full max-w-7xl px-[18px] sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
         <div class="mb-[30px] flex items-end justify-between gap-[30px] max-md:flex-col max-md:items-start">
             <div>
                 <span class="mb-2 block text-[11px] font-extrabold tracking-[0.12em] text-[var(--color-primary)]">LOCATIONS</span>
@@ -154,7 +154,7 @@
                     ][$badge];
                 @endphp
 
-                <article class="grid min-w-0 grid-cols-1 gap-5 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] max-[480px]:p-[18px]">
+                <a href="{{ route('user.locations.show', $location) }}" aria-label="View {{ $location->name }} location and lockers" class="group grid min-w-0 grid-cols-1 gap-5 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 text-left no-underline transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)] max-[480px]:p-[18px]">
                     <div>
                         <div class="flex flex-wrap items-start justify-between gap-3">
                             <div class="flex min-w-0 flex-1 items-center gap-[13px]">
@@ -203,26 +203,28 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-start border-t border-[var(--color-border)] pt-5 text-left">
-                        <span class="text-[11px] text-[var(--color-muted)]">Starting from</span>
-                        <strong class="mt-[3px] text-[21px] text-[var(--color-heading)]">Free</strong>
-                        <small class="text-[10px] text-[var(--color-muted)]">first 2 hours</small>
+                    <div class="flex items-center justify-between gap-4 border-t border-[var(--color-border)] pt-5 text-left">
+                        <div class="min-w-0">
+                            <span class="block text-[11px] text-[var(--color-muted)]">Starting from</span>
+                            <strong class="mt-[3px] block text-[21px] text-[var(--color-heading)]">Free</strong>
+                            <small class="block text-[10px] text-[var(--color-muted)]">first 2 hours</small>
+                        </div>
 
                         @if ($badge === 'full')
-                            <button type="button" disabled class="mt-3.5 flex w-full max-w-[180px] cursor-not-allowed items-center justify-center gap-[7px] rounded-[9px] border-0 bg-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-400 max-[480px]:max-w-none">
+                            <span aria-disabled="true" class="flex shrink-0 cursor-not-allowed items-center justify-center gap-[7px] rounded-[9px] bg-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-400">
                                 Notify Me
-                            </button>
+                            </span>
                         @else
-                            <a href="{{ route('user.locations.show', $location) }}" class="mt-3.5 flex w-full max-w-[180px] items-center justify-center gap-[7px] rounded-[9px] bg-[var(--color-primary)] px-3 py-2.5 text-xs font-semibold text-white no-underline transition duration-200 hover:bg-[var(--color-primary-hover)] max-[480px]:max-w-none">
-                                View Lockers
+                            <span class="flex shrink-0 items-center justify-center gap-[7px] rounded-[9px] bg-[var(--color-primary)] px-3 py-2.5 text-xs font-semibold text-white transition duration-200 group-hover:bg-[var(--color-primary-hover)]">
+                                View Location
                                 <svg class="h-3.5 w-3.5 stroke-current stroke-2" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12h14"></path>
                                     <path d="m13 6 6 6-6 6"></path>
                                 </svg>
-                            </a>
+                            </span>
                         @endif
                     </div>
-                </article>
+                </a>
             @empty
                 <p class="col-span-full text-sm text-[var(--color-muted)]">No locations found.</p>
             @endforelse
@@ -239,43 +241,104 @@
         </div>
     </section>
 
-    <section aria-labelledby="locker-banner-title" class="relative overflow-hidden bg-[var(--color-primary-dark)] px-4 py-10 sm:px-6 sm:py-20">
-        <div aria-hidden="true" class="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full border border-[var(--color-primary)]/30"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute -bottom-32 -left-16 h-72 w-72 rounded-full border border-[var(--color-primary)]/30"></div>
-        <div class="relative mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
-            <span class="text-[11px] font-bold uppercase tracking-[0.16em] text-[var(--color-footer-text)]">Smart Locker</span>
-            <h2 id="locker-banner-title" class="m-0 text-3xl font-extrabold leading-tight tracking-tight text-[var(--color-btn-text)] sm:text-4xl">Find your next locker.</h2>
-            <p class="m-0 max-w-xl text-sm leading-7 text-[var(--color-footer-text)] sm:text-base">Browse our locations and check locker availability before you visit.</p>
+    <section aria-labelledby="locker-banner-title" class="relative w-full overflow-hidden bg-[var(--color-primary-dark)] px-[18px] py-10 sm:px-6 sm:py-16">
+        <div aria-hidden="true" class="pointer-events-none absolute -right-24 -top-32 h-80 w-80 rounded-full border border-white/10"></div>
+        <div aria-hidden="true" class="pointer-events-none absolute -bottom-40 right-1/4 h-80 w-80 rounded-full border border-white/10"></div>
+        <div class="relative mx-auto grid w-full max-w-7xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)] lg:items-center lg:gap-10">
+
+            <div class="relative z-10">
+                <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold text-blue-100">
+                    <svg aria-hidden="true" class="size-4 stroke-current stroke-2" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                        <circle cx="12" cy="10" r="2.5"></circle>
+                    </svg>
+                    Smart Locker locations
+                </span>
+                <h2 id="locker-banner-title" class="mt-5 max-w-2xl text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">Find your next locker.</h2>
+                <p class="mt-4 max-w-xl text-sm leading-7 text-[var(--color-footer-text)] sm:text-base">Browse nearby locations, check live availability, and choose a locker that fits your day.</p>
+                <a href="{{ route('user.locations.index') }}" class="mt-6 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-[var(--color-heading)] no-underline shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                    Browse locations
+                    <svg aria-hidden="true" class="size-4 stroke-current stroke-2" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </a>
+            </div>
+
+            <div aria-hidden="true" class="relative mx-auto mt-8 w-full max-w-md lg:mt-0">
+                <div class="rounded-3xl border border-white/15 bg-white/[0.07] p-4 backdrop-blur-sm sm:p-5">
+                    <div class="flex items-center justify-between gap-3 rounded-2xl bg-white p-4 shadow-lg">
+                        <div class="flex min-w-0 items-center gap-3">
+                            <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary-light)] text-[var(--color-primary)]">
+                                <svg class="size-6 stroke-current stroke-[1.8]" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path>
+                                    <circle cx="12" cy="10" r="2.5"></circle>
+                                </svg>
+                            </span>
+                            <span class="min-w-0">
+                                <span class="block truncate text-sm font-bold text-[var(--color-heading)]">Choose a location</span>
+                                <span class="mt-1 block text-xs text-[var(--color-muted)]">See lockers near you</span>
+                            </span>
+                        </div>
+                        <span class="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-[#f0fdf4] px-2.5 py-1.5 text-[11px] font-bold text-[#15803d]">
+                            <span class="size-1.5 rounded-full bg-[var(--color-success)]"></span>
+                            Live
+                        </span>
+                    </div>
+                    <div class="mt-4 grid grid-cols-3 gap-3">
+                        <div class="flex aspect-[0.85] flex-col rounded-xl border border-white/15 bg-white/10 p-3">
+                            <span class="h-1.5 rounded-full bg-white/20"></span>
+                            <span class="mt-3 flex-1 rounded-lg border border-white/15 bg-white/5"></span>
+                            <span class="mx-auto mt-2 size-1.5 rounded-full bg-blue-300"></span>
+                        </div>
+                        <div class="flex aspect-[0.85] flex-col rounded-xl border border-emerald-300/40 bg-emerald-300/10 p-3">
+                            <span class="h-1.5 rounded-full bg-white/20"></span>
+                            <span class="mt-3 flex-1 rounded-lg border border-white/15 bg-white/5"></span>
+                            <span class="mx-auto mt-2 size-1.5 rounded-full bg-emerald-300"></span>
+                        </div>
+                        <div class="flex aspect-[0.85] flex-col rounded-xl border border-white/15 bg-white/10 p-3">
+                            <span class="h-1.5 rounded-full bg-white/20"></span>
+                            <span class="mt-3 flex-1 rounded-lg border border-white/15 bg-white/5"></span>
+                            <span class="mx-auto mt-2 size-1.5 rounded-full bg-blue-300"></span>
+                        </div>
+                    </div>
+                </div>
+                <span class="absolute -right-2 -top-4 rounded-full bg-white px-3 py-2 text-xs font-bold text-[var(--color-heading)] shadow-lg sm:-right-4">Availability at a glance</span>
+            </div>
         </div>
     </section>
 
-    <section class="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px] pt-10 sm:pt-[60px]">
+    <section class="mx-auto w-full max-w-7xl px-[18px] sm:px-6 pb-10 sm:pb-14 lg:pb-[70px] pt-10 sm:pt-[60px]">
         <div class="mb-10 text-center">
             <span class="mb-2 block text-[11px] font-extrabold tracking-[0.12em] text-[var(--color-primary)]">HOW IT WORKS</span>
             <h2 class="m-0 text-[30px] font-extrabold leading-[1.2] tracking-[-0.025em] text-[var(--color-heading)]">Three taps and you're done</h2>
-            <p class="mt-2 text-sm text-[var(--color-muted)]">No app download. No account needed for one-time use.</p>
+            <p class="mt-2 text-sm text-[var(--color-muted)]">No app download. Manage your locker session from your account.</p>
         </div>
 
         <div class="grid grid-cols-3 gap-5 max-md:grid-cols-1">
-            <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
-                <div class="mx-auto mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">1</div>
-                <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Find a Locker</h3>
-                <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Browse locations and check which lockers are available before you visit.</p>
-            </article>
-            <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
-                <div class="mx-auto mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">2</div>
-                <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Get Your Code</h3>
-                <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Reserve the locker and receive a 6-digit one-time code instantly.</p>
-            </article>
-            <article class="relative rounded-2xl border border-[var(--color-border)] bg-white p-[30px] text-center">
-                <div class="mx-auto mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-light)] text-lg font-extrabold text-[var(--color-primary)]">3</div>
-                <h3 class="mb-2.5 text-base font-bold text-[var(--color-heading)]">Store & Go</h3>
-                <p class="m-0 text-[13px] leading-[1.7] text-[var(--color-body)]">Enter the code on the locker keypad, drop your stuff, and go.</p>
-            </article>
+            @foreach ([
+                ['title' => 'Find a location', 'description' => 'Browse locations and check which lockers are available before you choose where to go.', 'icon' => 'M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0|M12 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5'],
+                ['title' => 'Confirm and get your code', 'description' => 'Choose an available locker and confirm its use to start your session and receive an access code.', 'icon' => 'M7 10V7a5 5 0 0 1 10 0v3|M5 10h14v11H5z|M12 14v3'],
+                ['title' => 'Store your belongings', 'description' => 'Use your access code at the locker. Find your locker details in My Lockers whenever you need them.', 'icon' => 'M4 3h16v18H4z|M4 9h16|M12 3v18|M16 13v3'],
+            ] as $step)
+                <article class="group relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_35px_rgba(15,23,42,0.08)] sm:p-7">
+                    <div aria-hidden="true" class="absolute right-5 top-2 text-6xl font-black tracking-tight text-slate-100 transition group-hover:text-blue-50">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between">
+                            <span class="flex size-12 items-center justify-center rounded-2xl bg-[var(--color-primary-light)] text-[var(--color-primary)]">
+                                <svg aria-hidden="true" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7">
+                                    @foreach (explode('|', $step['icon']) as $path)<path d="{{ $path }}"/>@endforeach
+                                </svg>
+                            </span>
+                        </div>
+                        <h3 class="mt-6 text-lg font-bold text-[var(--color-heading)]">{{ $step['title'] }}</h3>
+                        <p class="mt-2 text-sm leading-7 text-[var(--color-body)]">{{ $step['description'] }}</p>
+                    </div>
+                </article>
+            @endforeach
         </div>
 
         <div class="mt-[30px] text-center">
-            <a href="/how-to-use" class="inline-flex items-center gap-[7px] text-[13px] font-semibold text-[var(--color-primary)] no-underline">
+            <a href="{{ route('how-to-use') }}" class="inline-flex items-center gap-[7px] text-[13px] font-semibold text-[var(--color-primary)] no-underline">
                 Read the full guide
                 <svg class="h-[15px] w-[15px] stroke-current" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12h14"></path>
@@ -285,7 +348,7 @@
         </div>
     </section>
 
-    <section class="mx-auto w-full max-w-7xl px-4 sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
+    <section class="mx-auto w-full max-w-7xl px-[18px] sm:px-6 pb-10 sm:pb-14 lg:pb-[70px]">
         <div class="grid grid-cols-3 gap-4 max-md:grid-cols-1">
             <div class="flex items-center gap-3.5 rounded-2xl border border-[var(--color-border)] bg-white p-5">
                 <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#f0fdf4] text-[var(--color-success)]">

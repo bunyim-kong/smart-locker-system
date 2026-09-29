@@ -13,7 +13,7 @@
     <div class="mx-auto flex min-h-screen max-w-7xl flex-col px-5 sm:px-8 lg:px-12">
         <main class="flex flex-1 items-center justify-center py-6 sm:py-10">
             <div class="w-full max-w-md overflow-hidden rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-md shadow-[var(--color-primary-dark)]/10">
-                <section aria-labelledby="auth-title" class="flex flex-col justify-center gap-6 px-4 py-8 sm:px-6 sm:py-10">
+                <section aria-labelledby="auth-title" class="flex flex-col justify-center gap-6 px-[18px] py-8 sm:px-6 sm:py-10">
                     <div class="logo-login flex flex-col items-center justify-center gap-4">
                         <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)]">Welcome to</p>
 

@@ -32,7 +32,7 @@
         <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
         <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
 
-        <div class="relative z-[5] mx-auto max-w-3xl px-4 pt-8 pb-[90px] sm:px-6 lg:pt-14 text-center">
+        <div class="relative z-[5] mx-auto max-w-3xl px-[18px] pt-8 pb-[90px] sm:px-6 lg:pt-14 text-center">
             <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-bold tracking-wide">
                 📍 3 LOCATIONS · LIVE AVAILABILITY
             </span>
@@ -52,7 +52,7 @@
         </svg>
     </section>
 
-    <section class="bg-[var(--color-bg)] px-4 sm:px-6 pb-8 sm:pb-12 lg:pb-[70px]">
+    <section class="bg-[var(--color-bg)] px-[18px] sm:px-6 pb-8 sm:pb-12 lg:pb-[70px]">
         <div class="relative z-10 mx-auto mt-[-65px] grid w-full max-w-7xl grid-cols-4 gap-4 max-md:grid-cols-2 max-[480px]:gap-2.5">
             @foreach ($stats as $stat)
                 <div class="rounded-[14px] border-2 border-[var(--color-border)] bg-[var(--color-card)] px-[22px] py-[26px] shadow-[0_8px_25px_rgba(15,23,42,0.05)] max-[480px]:p-3">
@@ -66,7 +66,7 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-[1280px] px-4 pb-10 sm:px-6 sm:pb-16">
+    <section class="mx-auto max-w-[1280px] px-[18px] pb-10 sm:px-6 sm:pb-16">
         <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
                 <span class="text-xs font-bold uppercase tracking-wide text-[var(--color-primary)]">LOCATIONS</span>
@@ -117,7 +117,7 @@
                     ][$badge];
                 @endphp
 
-                <article class="grid min-w-0 grid-cols-1 gap-5 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] max-[480px]:p-[18px]">
+                <a href="{{ route('user.locations.show', $location) }}" aria-label="View {{ $location->name }} location and lockers" class="group grid min-w-0 grid-cols-1 gap-5 rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] p-6 text-left no-underline transition duration-200 hover:-translate-y-px hover:border-blue-200 hover:shadow-[0_12px_30px_rgba(15,23,42,0.07)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)] max-[480px]:p-[18px]">
                     <div>
                         <div class="flex flex-wrap items-start justify-between gap-3">
                             <div class="flex min-w-0 flex-1 items-center gap-[13px]">
@@ -166,26 +166,28 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-start border-t border-[var(--color-border)] pt-5 text-left">
-                        <span class="text-[11px] text-[var(--color-muted)]">Starting from</span>
-                        <strong class="mt-[3px] text-[21px] text-[var(--color-heading)]">Free</strong>
-                        <small class="text-[10px] text-[var(--color-muted)]">first 2 hours</small>
+                    <div class="flex items-center justify-between gap-4 border-t border-[var(--color-border)] pt-5 text-left">
+                        <div class="min-w-0">
+                            <span class="block text-[11px] text-[var(--color-muted)]">Starting from</span>
+                            <strong class="mt-[3px] block text-[21px] text-[var(--color-heading)]">Free</strong>
+                            <small class="block text-[10px] text-[var(--color-muted)]">first 2 hours</small>
+                        </div>
 
                         @if ($badge === 'full')
-                            <button type="button" disabled class="mt-3.5 flex w-full max-w-[180px] cursor-not-allowed items-center justify-center gap-[7px] rounded-[9px] border-0 bg-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-400 max-[480px]:max-w-none">
+                            <span aria-disabled="true" class="flex shrink-0 cursor-not-allowed items-center justify-center gap-[7px] rounded-[9px] bg-slate-200 px-3 py-2.5 text-xs font-semibold text-slate-400">
                                 Notify Me
-                            </button>
+                            </span>
                         @else
-                            <a href="{{ route('user.locations.show', $location) }}" class="mt-3.5 flex w-full max-w-[180px] items-center justify-center gap-[7px] rounded-[9px] bg-[var(--color-primary)] px-3 py-2.5 text-xs font-semibold text-white no-underline transition duration-200 hover:bg-[var(--color-primary-hover)] max-[480px]:max-w-none">
-                                View Lockers
+                            <span class="flex shrink-0 items-center justify-center gap-[7px] rounded-[9px] bg-[var(--color-primary)] px-3 py-2.5 text-xs font-semibold text-white transition duration-200 group-hover:bg-[var(--color-primary-hover)]">
+                                View Location
                                 <svg class="h-3.5 w-3.5 stroke-current stroke-2" viewBox="0 0 24 24" fill="none">
                                     <path d="M5 12h14"></path>
                                     <path d="m13 6 6 6-6 6"></path>
                                 </svg>
-                            </a>
+                            </span>
                         @endif
                     </div>
-                </article>
+                </a>
             @empty
                 <p class="col-span-full text-sm text-[var(--color-muted)]">No locations found.</p>
             @endforelse

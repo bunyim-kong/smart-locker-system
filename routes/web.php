@@ -43,7 +43,7 @@ Route::middleware('auth')->name('user.')->group(function () {
     Route::post('/locker-usage/{history}/finish', [LockerController::class, 'finish'])->middleware('throttle:10,1')->name('lockers.finish');
     Route::get('/lockers/{locker}', [LockerController::class, 'show'])->name('lockers.show');
 
-    Route::get('/profile', fn () => view('user.profile'))->name('profile');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 

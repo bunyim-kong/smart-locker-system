@@ -16,9 +16,8 @@ class LockerController extends Controller
     public function index(Request $request): Response
     {
         $activeUsages = $request->user()->history()->whereNull('end_time')->with('locker.location')->latest('id')->get();
-        $pastUsage = $request->user()->history()->whereNotNull('end_time')->with('locker.location')->latest('start_time')->paginate(10);
 
-        return response()->view('user.lockers.index', compact('activeUsages', 'pastUsage'))
+        return response()->view('user.lockers.index', compact('activeUsages'))
             ->header('Cache-Control', 'no-store, private');
     }
 

@@ -16,7 +16,7 @@
         <div class="min-w-0 flex-1 flex flex-col min-h-screen pt-20 sm:ml-64">
             @include('admin.partial.header')
 
-            <main class="min-w-0 flex-1 px-4 py-6 sm:px-6">
+            <main class="min-w-0 flex-1 px-[18px] py-6 sm:px-6">
                 @yield('content')
             </main>
         </div>

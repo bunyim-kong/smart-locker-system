@@ -1,5 +1,5 @@
     <header class="sticky top-0 z-40 m-0 flex w-full flex-col items-center justify-center border-b-2 border-[var(--color-border)] bg-white/100 p-0">
-        <div class="m-0 flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+        <div class="m-0 flex w-full max-w-7xl items-center justify-between gap-3 px-[18px] py-3 sm:px-6">
             <a href="{{ route('home') }}" class="inline-flex items-center gap-2.5 no-underline">
                 <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 36 36" fill="none" aria-hidden="true">
                     <rect width="36" height="36" rx="9" fill="var(--color-primary-soft)"/>
@@ -26,9 +26,6 @@
                     <li class="m-0 p-0 list-none">
                         <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('user.locations.*') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('user.locations.index') }}">Location</a>
                     </li>
-                    @auth
-                    <li><a href="{{ route('user.lockers.index') }}" class="text-base font-semibold text-[var(--color-primary)]">My Lockers</a></li>
-                    @endauth
                     <li class="m-0 p-0 list-none">
                         <a class="text-base no-underline transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)] {{ request()->routeIs('how-to-use') ? 'text-[var(--color-heading)] font-bold' : 'text-[var(--color-body)]' }} " href="{{ route('how-to-use') }}">How to use</a>
                     </li>
@@ -71,10 +68,7 @@
         </div>
 
         <div id="mobile-navlink" class="hidden max-h-[calc(100dvh-80px)] w-full overflow-y-auto lg:hidden">
-            <ul class="m-0 flex list-none flex-col gap-1 px-4 py-3 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
-                @auth
-                <li><a href="{{ route('user.lockers.index') }}" class="font-semibold text-[var(--color-primary)]">My Lockers</a></li>
-                @endauth
+            <ul class="m-0 flex list-none flex-col gap-1 px-[18px] py-3 [&_a]:flex [&_a]:min-h-11 [&_a]:items-center">
                 <li class="list-none">
                     <a href="{{ route('home') }}" class="no-underline text-[var(--color-heading)] font-bold transition-all duration-200 hover:font-bold hover:text-[var(--color-heading)]">Home</a>
                 </li>

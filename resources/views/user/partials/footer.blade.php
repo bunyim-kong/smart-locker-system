@@ -1,5 +1,5 @@
     <footer class="mt-auto bg-[var(--color-footer)] text-[var(--color-footer-text)]">
-        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-6 sm:px-6 max-lg:flex-col max-lg:text-center">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-[18px] py-6 sm:px-6 max-lg:flex-col max-lg:text-center">
             <div class="flex items-center">
                 <a href="{{ route('home') }}" class="inline-flex items-center gap-2.5 no-underline">
                     <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 36 36" fill="none" aria-hidden="true">

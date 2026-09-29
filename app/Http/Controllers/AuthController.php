@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
     //
     // register
-    public function index() {
+    public function index()
+    {
         return view('auth.register');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string','max:255' ,'unique:users,email'],
+            'email' => ['required', 'string', 'max:255', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
@@ -28,18 +31,32 @@ class AuthController extends Controller
             'password' => $data['password'],
             'role' => 'user',
         ]);
-        
+
         Auth::login($user);
 
         return redirect()->route('home');
     }
 
     // login
-    public function login() {
+    public function login()
+    {
         return view('auth.login');
     }
 
-    public function authenticate(Request $request) {
+    public function profile(Request $request): Response
+    {
+        $pastUsage = $request->user()->history()
+            ->whereNotNull('end_time')
+            ->with('locker.location')
+            ->latest('start_time')
+            ->paginate(10);
+
+        return response()->view('user.profile', compact('pastUsage'))
+            ->header('Cache-Control', 'no-store, private');
+    }
+
+    public function authenticate(Request $request)
+    {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
@@ -57,12 +74,13 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The email of password is incorrect. Please check again!'
+            'email' => 'The email of password is incorrect. Please check again!',
         ]);
     }
 
-    //logout
-    public function logout(Request $request) {
+    // logout
+    public function logout(Request $request)
+    {
         Auth::logout();
 
         $request->session()->invalidate();
