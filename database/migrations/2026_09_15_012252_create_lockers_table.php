@@ -15,8 +15,7 @@ return new class extends Migration
         Schema::create('lockers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('size', ['Small', 'Medium', 'Large'])->after('name');
-            $table->enum('status', [ 'In Use', 'Available', 'Maintenance' ]);
+            $table->enum('status', ['Available', 'In Use', 'Maintenance'])->default('Available');
             $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
 
@@ -32,8 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('lockers');
-         Schema::table('lockers', function (Blueprint $table) {
-            $table->dropColumn('size');
-        });
     }
+    
 };
