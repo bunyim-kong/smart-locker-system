@@ -4,6 +4,9 @@
 
 @section('content')
 <section>
+    @if ($errors->any())
+        <div role="alert" class="mb-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-red-700">{{ $errors->first() }}</div>
+    @endif
     @if (session('success'))
         <div role="status" class="mb-4 rounded-lg bg-green-50 px-4 py-2 text-sm text-green-700">{{ session('success') }}</div>
     @endif
@@ -15,6 +18,7 @@
         <button type="submit" class="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium hover:bg-gray-50">Search</button>
         <a href="{{ route('admin.maintenances.create') }}" class="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"><span aria-hidden="true">+</span> Add maintenance</a>
     </form>
+
     <div class="overflow-x-auto rounded-xl border border-gray-100 bg-white">
         <table class="w-full text-sm">
             <thead>

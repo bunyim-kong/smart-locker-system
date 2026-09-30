@@ -63,6 +63,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/lockers', [AdminLockerController::class, 'index'])->name('lockers.index');
     Route::get('/lockers/create', [AdminLockerController::class, 'create'])->name('lockers.create');
     Route::post('/lockers', [AdminLockerController::class, 'store'])->name('lockers.store');
+    Route::post('/lockers/{locker}/mark-available', [AdminLockerController::class, 'markAvailable'])->name('lockers.mark-available');
     Route::put('/lockers/{locker}', [AdminLockerController::class, 'update'])->name('lockers.update');
     Route::get('/lockers/{locker}/edit', [AdminLockerController::class, 'edit'])->name('lockers.edit');
     Route::delete('/lockers/{locker}', [AdminLockerController::class, 'destroy'])->name('lockers.destroy');

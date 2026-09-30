@@ -205,9 +205,7 @@
 
                     <div class="flex items-center justify-between gap-4 border-t border-[var(--color-border)] pt-5 text-left">
                         <div class="min-w-0">
-                            <span class="block text-[11px] text-[var(--color-muted)]">Starting from</span>
                             <strong class="mt-[3px] block text-[21px] text-[var(--color-heading)]">Free</strong>
-                            <small class="block text-[10px] text-[var(--color-muted)]">first 2 hours</small>
                         </div>
 
                         @if ($badge === 'full')
@@ -382,8 +380,8 @@
                     </svg>
                 </div>
                 <div>
-                    <strong class="block text-sm text-[var(--color-heading)]">Free First 2 Hours</strong>
-                    <span class="text-xs text-[var(--color-muted)]">No card required</span>
+                    <strong class="block text-sm text-[var(--color-heading)]">Use for Free</strong>
+                    <span class="text-xs text-[var(--color-muted)]">No payment required</span>
                 </div>
             </div>
         </div>

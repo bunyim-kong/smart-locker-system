@@ -39,15 +39,16 @@
         </div>
 
         {{-- Buttons --}}
-        <div class="flex gap-3 mt-6">
-            <button type="submit"
-                    class="inline-flex items-center h-10 px-[18px] border border-[#0a8cf5] rounded-lg bg-[#0a8cf5] text-white text-sm font-medium cursor-pointer">
-                Save location
-            </button>
+        <div class="flex justify-end gap-3 mt-6">
             <a href="{{ route('admin.locations.index') }}"
                class="inline-flex items-center h-10 px-[18px] border border-gray-200 rounded-lg bg-white text-gray-900 text-sm font-medium no-underline cursor-pointer">
                 Cancel
             </a>
+
+            <button type="submit"
+                    class="inline-flex items-center h-10 px-[18px] border border-[#0a8cf5] rounded-lg bg-blue-600 text-white text-sm font-medium cursor-pointer">
+                Save location
+            </button>
         </div>
     </form>
 </div>

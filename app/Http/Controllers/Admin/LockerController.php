@@ -91,6 +91,25 @@ class LockerController extends Controller
             ->route('admin.lockers.index')->with('success', 'Locker updated successfully.');
     }
 
+    public function markAvailable(Locker $locker): RedirectResponse
+    {
+        DB::transaction(function () use ($locker): void {
+            $lockedLocker = Locker::whereKey($locker->getKey())->lockForUpdate()->firstOrFail();
+
+            if ($lockedLocker->status !== 'Maintenance') {
+                throw ValidationException::withMessages(['locker' => 'Only lockers marked for maintenance can be marked available here.']);
+            }
+
+            if ($lockedLocker->history()->whereNull('end_time')->exists()) {
+                throw ValidationException::withMessages(['locker' => 'Finish the active locker session before changing its status.']);
+            }
+
+            $lockedLocker->update(['status' => 'Available']);
+        });
+
+        return redirect()->route('admin.maintenances.index')->with('success', 'Locker marked as available.');
+    }
+
     // Delete locker
     public function destroy(Locker $locker): RedirectResponse
     {

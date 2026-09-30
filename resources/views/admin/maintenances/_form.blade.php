@@ -1,4 +1,4 @@
-<p class="mb-6 text-sm text-gray-500">Track the issue here. Manage locker availability separately on the <a href="{{ route('admin.lockers.index') }}" class="text-blue-600 underline">Lockers page</a>.</p>
+<p class="mb-6 text-sm text-gray-500">Saving this maintenance report marks the selected locker as Maintenance for both admins and users. After repairs, mark it available from the maintenance list.</p>
 <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
     <div class="md:col-span-2">
         <label for="locker_id" class="mb-1 block text-sm font-medium text-gray-700">Locker</label>
